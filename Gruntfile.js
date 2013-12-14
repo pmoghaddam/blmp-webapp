@@ -15,7 +15,7 @@ var mountFolder = function (connect, dir) {
 
 module.exports = function (grunt) {
     // show elapsed time at the end
-    require('time-grunt')(grunt);
+//    require('time-grunt')(grunt);
     // load all grunt tasks
     require('load-grunt-tasks')(grunt);
 
@@ -335,6 +335,11 @@ module.exports = function (grunt) {
         'copy',
         'rev',
         'usemin'
+    ]);
+
+    grunt.registerTask('default', [
+        'test',
+        'build'
     ]);
 
 };
