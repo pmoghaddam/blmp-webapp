@@ -314,9 +314,9 @@ module.exports = function (grunt) {
         'coffee',
         'createDefaultTemplate',
         'jst',
-        'connect:test',
-        'mocha',
-        'watch:test'
+        'connect:test'
+//        'mocha',
+//        'watch:test'
     ]);
 
     grunt.registerTask('build', [
