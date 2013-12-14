@@ -310,12 +310,13 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('test', [
+        'jshint',
         'clean:server',
         'coffee',
         'createDefaultTemplate',
         'jst',
-        'connect:test'
-//        'mocha',
+        'connect:test',
+        'mocha'
 //        'watch:test'
     ]);
 
@@ -336,9 +337,4 @@ module.exports = function (grunt) {
         'usemin'
     ]);
 
-    grunt.registerTask('default', [
-        'jshint',
-        'test',
-        'build'
-    ]);
 };
