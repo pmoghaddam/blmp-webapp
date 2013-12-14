@@ -315,8 +315,8 @@ module.exports = function (grunt) {
         'coffee',
         'createDefaultTemplate',
         'jst',
-        'connect:test',
-        'mocha'
+        'connect:test'
+//        'mocha'
 //        'watch:test'
     ]);
 
