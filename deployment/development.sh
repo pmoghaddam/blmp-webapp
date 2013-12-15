@@ -6,9 +6,8 @@ bower install
 grunt
 
 # Deploy
-cd server
-git pull
-cd ..
+git submodule init
+git submodule update
 
 # Commit Heroku entry
 rm -rf server/dist
