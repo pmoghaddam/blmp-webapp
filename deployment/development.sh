@@ -1,20 +1,21 @@
-# Install everything
+echo ">> Install everything"
 npm install
 bower install
 
-# Test and Build
+echo ">> Test and build"
 grunt
 
-# Deploy
+echo ">> Update submodules"
 git submodule init
 git submodule update
-
-# Commit Heroku entry
-rm -rf server/dist
-cp -R dist server/dist
 cd server
+git checkout master
 
-# Push to Heroku
+echo ">> Commit Heroku Entry"
+rm -rf dist
+cp -R ../dist dist
+
+echo ">> Pushing to Heroku"
 git add -A
 git commit -m "Another build"
 git push origin master --force
