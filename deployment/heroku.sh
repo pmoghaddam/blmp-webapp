@@ -1,10 +1,4 @@
-echo ">> Install everything"
-npm install
-bower install
-
-echo ">> Test and build"
-grunt
-
+# Execute once ready to deploy (useful for CI)
 echo ">> Update submodules"
 git submodule init
 git submodule update
@@ -20,4 +14,4 @@ git add -A
 git commit -m "Another build"
 
 echo ">> Pushing to Heroku"
-git push origin master --force
+git push origin master
