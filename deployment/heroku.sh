@@ -14,4 +14,4 @@ git add -A
 git commit -m "Another build"
 
 echo ">> Pushing to Heroku"
-git push origin master
+git push origin master --force
