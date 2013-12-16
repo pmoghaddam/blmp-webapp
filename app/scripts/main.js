@@ -17,16 +17,14 @@ require.config({
     paths: {
         jquery: '../bower_components/jquery/jquery',
         backbone: '../bower_components/backbone/backbone',
-        underscore: '../bower_components/underscore/underscore',
-        socketio: '../bower_components/socket.io-client/dist/socket.io'
+        underscore: '../bower_components/underscore/underscore'
     }
 });
 
 require([
     'jquery',
-    'backbone',
-    'socketio'
-], function ($, Backbone, io) {
+    'backbone'
+], function ($, Backbone) {
     Backbone.history.start();
 
     // Local or not
@@ -41,7 +39,7 @@ require([
     var $view = $('#list');
 
     // Basic Socket.IO connection
-    var socket = io.connect(url);
+    var socket = window.io.connect(url); // TODO: Capture with AMD
     window.socket = socket;
     socket.on('connected', function (data) {
         console.log(data);
