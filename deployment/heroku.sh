@@ -1,5 +1,6 @@
 # Execute once ready to deploy (useful for CI)
 echo ">> Update submodules"
+rm -rf server
 git submodule init
 git submodule update
 
