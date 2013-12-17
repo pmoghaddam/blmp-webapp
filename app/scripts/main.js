@@ -1,4 +1,3 @@
-/*global require*/
 'use strict';
 
 require.config({
@@ -23,8 +22,9 @@ require.config({
 
 require([
     'jquery',
-    'backbone'
-], function ($, Backbone) {
+    'backbone',
+    'io'
+], function ($, Backbone, io) {
     Backbone.history.start();
 
     // Local or not
@@ -35,23 +35,38 @@ require([
         url = 'http://blpm-api.herokuapp.com';
     }
 
-    // Dummy View Area
+    // Dummy view area
     var $view = $('#list');
 
     // Basic Socket.IO connection
-    var socket = window.io.connect(url); // TODO: Capture with AMD
+    var socket = io.connect(url); // TODO: Capture with AMD
     window.socket = socket;
+
+    // Tasks
     socket.on('connected', function (data) {
         console.log(data);
     });
-    socket.on('tasks:list', function(tasks) {
+    socket.on('tasks:list', function (tasks) {
         for (var i = 0; i < tasks.length; i++) {
-            $view.append('<li>' + tasks[i].title + '</li>');
+            $view.append('<li data-id="' + tasks[i]._id + '">' + tasks[i].title + '</li>');
         }
     });
-    socket.on('tasks:create', function(task) {
-        $view.prepend('<li>' + task.title + '</li>');
+    socket.on('tasks:create', function (task) {
+        $view.prepend('<li data-id="' + task._id + '">' + task.title + '</li>');
+    });
+    socket.on('tasks:delete', function (task) {
+        $view.find('[data-id="' + task._id + '"]').remove();
     });
 
     socket.emit('tasks:list');
+
+    // Dummy View Area
+    var i = 0;
+    $('#add').click(function () {
+        socket.emit('tasks:create', {title: 'New Task #' + i++});
+    });
+    $('#remove').click(function () {
+        var id = $view.find('li').data('id');
+        socket.emit('tasks:delete', {id: id});
+    });
 });

@@ -18,5 +18,17 @@
     "strict": true,
     "trailing": true,
     "smarttabs": true,
-    "jquery": true
+    "jquery": true,
+    "predef": [
+        "define",
+        "require",
+        "expect",
+        "assert",
+        "describe",
+        "before",
+        "beforeEach",
+        "after",
+        "afterEach",
+        "it"
+    ]
 }

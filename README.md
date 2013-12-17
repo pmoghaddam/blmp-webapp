@@ -21,6 +21,11 @@ To achieve this, the Continuous Integration server simply executes `sh deploymen
 
 # Tasks
 * [X] Add Socket.IO
-* Provide basic functionality
+* [X] Provide basic functionality to showcase live nature
 * Understand how to keep socket.io as separate file? (prevent large JS files)
 * Utilize CryptoJS (AES-256 bit)
+
+## Big Picture
+* Have application start on access
+    * Users can capture tasks but it saves locally
+    * When they sign-up, it can then be synced across devices, and persisted
