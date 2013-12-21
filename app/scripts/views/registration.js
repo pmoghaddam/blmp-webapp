@@ -9,11 +9,10 @@ define([
 ], function ($, _, Backbone, JST, formHelper) {
     'use strict';
 
-    var LoginView = Backbone.View.extend({
-        template: JST['app/scripts/templates/login.ejs'],
+    var RegistrationView = Backbone.View.extend({
+        template: JST['app/scripts/templates/registration.ejs'],
         events: {
-            'submit': 'onSubmit',
-            'click .sign-up': 'onRegister'
+            'submit': 'onSubmit'
         },
 
         render: function () {
@@ -21,19 +20,13 @@ define([
             return this;
         },
 
-        onRegister: function (e) {
-            e.preventDefault();
-            this.trigger('register');
-        },
-
         onSubmit: function (e) {
-            var data = formHelper.extractFormValues(this.$el.find('form'));
-
-            this.trigger('login', data);
-
             e.preventDefault();
+
+            var data = formHelper.extractFormValues(this.$el.find('form'));
+            this.trigger('register', data);
         }
     });
 
-    return LoginView;
+    return RegistrationView;
 });

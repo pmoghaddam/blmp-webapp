@@ -18,6 +18,14 @@ define([
                     withCredentials: true
                 }
             }));
+        },
+
+        register: function (info) {
+            return q($.ajax({
+                method: 'POST',
+                url: config.url + '/v0/registration',
+                data: info
+            }));
         }
     });
 
