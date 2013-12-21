@@ -23,10 +23,9 @@ require.config({
 require([
     'jquery',
     'backbone',
-    'io',
     'lib/config', // Important to load
     'controllers/application'
-], function ($, Backbone, io, config, ApplicationController) {
+], function ($, Backbone, config, ApplicationController) {
     new ApplicationController().start();
 
 //    // Dummy view area
