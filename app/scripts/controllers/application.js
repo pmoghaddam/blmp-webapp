@@ -4,8 +4,9 @@ define([
     'jquery',
     'backbone',
     'underscore',
-    'controllers/login'
-], function ($, Backbone, _, LoginController) {
+    'controllers/login',
+    'controllers/task'
+], function ($, Backbone, _, LoginController, TaskController) {
     'use strict';
 
     var ApplicationController = Backbone.Controller.extend({
@@ -14,15 +15,14 @@ define([
 
             // Setup controllers
             this.controllers = {
-                login: new LoginController()
+                login: new LoginController(),
+                task: new TaskController()
             };
 
             // Start controllers
             _.each(this.controllers, function (controller) {
                 controller.start();
             });
-
-            // TODO: Add application view
         }
     });
 

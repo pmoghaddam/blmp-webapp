@@ -22,7 +22,8 @@ To achieve this, the Continuous Integration server simply executes `sh deploymen
 # Tasks
 * [X] Add Socket.IO
 * [X] Provide basic functionality to showcase live nature
-* Add basic login page
+* [x] Add basic login page
+* Capture architecture in README
 * Add SSL to both Heroku instances
 * Setup testing, including functional with Phantom.JS and Casper.js
 * Data synchronization strategy

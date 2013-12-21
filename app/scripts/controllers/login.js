@@ -4,10 +4,11 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'lib/dispatcher',
     'services/authentication',
     'services/socket',
     'views/login'
-], function ($, _, Backbone, AuthService, SocketService, LoginView) {
+], function ($, _, Backbone, dispatcher, AuthService, SocketService, LoginView) {
     'use strict';
 
     var LoginController = Backbone.Controller.extend({
@@ -27,17 +28,15 @@ define([
         },
 
         onLogin: function (credentials) {
-            var connectViaSocket = _.bind(this.socketService.connect, this.socketService);
+            var me = this;
 
             this.authService
                 .login(credentials)
-                .then(connectViaSocket)
-                .then(function (socket) {
-                    socket.on('tasks:list', function (tasks) {
-                        console.log(tasks);
-                    });
-
-                    socket.emit('tasks:list');
+                .then(function() {
+                    me.socketService.connect();
+                })
+                .then(function () {
+                    dispatcher.trigger('loggedIn');
                 });
         }
     });
