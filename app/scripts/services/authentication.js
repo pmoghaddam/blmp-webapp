@@ -11,8 +11,11 @@ define([
         login: function (credentials) {
             return $.ajax({
                 method: 'POST',
-                url: config.url + '/v0/token',
-                data: credentials
+                url: config.url + '/v0/session',
+                data: credentials,
+                xhrFields: {
+                    withCredentials: true
+                }
             });
         }
     });
