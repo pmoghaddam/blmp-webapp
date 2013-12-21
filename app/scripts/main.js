@@ -14,6 +14,7 @@ require.config({
         }
     },
     paths: {
+        q: '../bower_components/q/q',
         jquery: '../bower_components/jquery/jquery',
         backbone: '../bower_components/backbone/backbone',
         underscore: '../bower_components/underscore/underscore'

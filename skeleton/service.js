@@ -2,8 +2,9 @@
 
 define([
     'jquery',
-    'backbone'
-], function ($, Backbone) {
+    'backbone',
+    'q'
+], function ($, Backbone, q) {
     'use strict';
 
     var BasicService = Backbone.Service.extend({
