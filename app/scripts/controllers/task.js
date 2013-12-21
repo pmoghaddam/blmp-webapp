@@ -46,8 +46,9 @@ define([
                     io.socket.on('tasks:delete', _.bind(me.onDelete, me));
 
                     // Render tasks
-                    var view = new TasksView({collection: me.tasks, el: '#app'});
+                    var view = new TasksView({collection: me.tasks});
                     view.render();
+                    $('#app').append(view.el);
 
                     view.on('add', function (task) {
                         io.socket.emit('tasks:create', task);

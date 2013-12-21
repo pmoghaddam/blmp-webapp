@@ -70,6 +70,7 @@ define([
                     me.socketService.connect();
                 })
                 .then(function () {
+                    me.view.remove();
                     dispatcher.trigger('loggedIn');
                 });
         }
