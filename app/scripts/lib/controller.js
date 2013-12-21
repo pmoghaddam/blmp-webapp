@@ -17,6 +17,9 @@ define([
 
     // Add methods here
     _.extend(Controller.prototype, {
+        start: function() {
+
+        }
     });
 
     return Controller;
