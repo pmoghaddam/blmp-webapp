@@ -7,6 +7,7 @@ define([
     'use strict';
 
     var TaskModel = Backbone.Model.extend({
+        idAttribute: '_id',
         defaults: {
             title: 'New Task' // TODO: Localize
         }
