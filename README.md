@@ -23,6 +23,7 @@ To achieve this, the Continuous Integration server simply executes `sh deploymen
 * [X] Add Socket.IO
 * [X] Provide basic functionality to showcase live nature
 * Add basic login page
+* Add SSL to both Heroku instances
 * Setup testing, including functional with Phantom.JS and Casper.js
 * Data synchronization strategy
     * Starting source: http://stackoverflow.com/questions/12340083/consolidating-changes-when-syncing-with-a-server-from-offline-localstorage
