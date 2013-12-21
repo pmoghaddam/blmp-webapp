@@ -22,8 +22,14 @@ To achieve this, the Continuous Integration server simply executes `sh deploymen
 # Tasks
 * [X] Add Socket.IO
 * [X] Provide basic functionality to showcase live nature
+* Add basic login page
+* Setup testing, including functional with Phantom.JS and Casper.js
+* Data synchronization strategy
+    * Starting source: http://stackoverflow.com/questions/12340083/consolidating-changes-when-syncing-with-a-server-from-offline-localstorage
+    * Investigate: https://github.com/nilbus/Backbone.dualStorage
 * Understand how to keep socket.io as separate file? (prevent large JS files)
 * Utilize CryptoJS (AES-256 bit)
+* Prevent XSS (security attacks)
 
 ## Big Picture
 * Have application start on access
