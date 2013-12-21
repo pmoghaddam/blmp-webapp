@@ -8,7 +8,8 @@
     "requirejs": "2.1.5",
     "modernizr": "2.6.2",
     "socket.io-client": "0.9.16",
-    "q": "0.9.7"
+    "q": "0.9.7",
+    "bootstrap": "3.0.3"
   },
   "devDependencies": {}
 }
