@@ -305,19 +305,6 @@ module.exports = function (grunt) {
                     ]
                 }
             }
-        },
-        concurrent: {
-            dev: [
-                'coffee',
-                'recess'
-            ],
-            dist: [
-                'coffee:dist',
-                'recess'
-            ],
-            options: {
-                logConcurrentOutput: true
-            }
         }
     });
 
@@ -333,7 +320,8 @@ module.exports = function (grunt) {
         if (target === 'test') {
             return grunt.task.run([
                 'clean:server',
-                'concurrent:dev',
+                'coffee',
+                'recess',
                 'createDefaultTemplate',
                 'jst',
                 'connect:test',
@@ -343,7 +331,8 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:server',
-            'concurrent:dist',
+            'coffee:dist',
+            'recess',
             'createDefaultTemplate',
             'jst',
             'connect:livereload',
@@ -355,7 +344,8 @@ module.exports = function (grunt) {
     grunt.registerTask('test', [
         'jshint',
         'clean:server',
-        'concurrent:dev',
+        'coffee',
+        'recess',
         'createDefaultTemplate',
         'jst',
         'connect:test'
@@ -365,7 +355,8 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
-        'concurrent:dist',
+        'coffee',
+        'recess',
         'createDefaultTemplate',
         'jst',
         'useminPrepare',
