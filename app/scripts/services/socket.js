@@ -5,13 +5,13 @@ define([
     'backbone',
     'q',
     'lib/config',
-    'io'
+    'lib/socket-io'
 ], function ($, Backbone, q, config, io) {
     'use strict';
 
     var SocketService = Backbone.Service.extend({
         connect: function () {
-            var socket = this.socket = io.connect(config.url);
+            var socket = this.socket = io.io.connect(config.url);
 
             var deferred = q.defer();
 

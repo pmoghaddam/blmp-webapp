@@ -4,8 +4,6 @@
  * Assisting class to configure and load required classes
  */
 define([
-    'lib/controller',
-    'lib/service',
 ], function () {
     'use strict';
 
