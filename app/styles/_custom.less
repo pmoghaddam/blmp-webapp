@@ -7,6 +7,7 @@ body {
 }
 
 #task-list-all {
+  text-align: center;
   .btn-group {
     width: 100%;
   }
@@ -28,8 +29,31 @@ body {
   }
 }
 
-#add-task-input {
-  border: 0;
-  background: transparent;
-  outline: none;
+.add-task-item {
+  background: #428bca;
+  color: white;
+
+  &:hover {
+    background: lighten(#428bca, 10%);
+  }
+
+  #add-task-input {
+    border: 0;
+    background: transparent;
+    outline: none;
+    color: white;
+
+    &::-moz-placeholder {
+      color: white;
+      font-style: italic;
+    }
+    &::-webkit-input-placeholder {
+      color: white;
+      font-style: italic;
+    }
+    &:-ms-input-placeholder {
+      color: white;
+      font-style: italic;
+    }
+  }
 }

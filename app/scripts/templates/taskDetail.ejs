@@ -6,10 +6,52 @@
                 <label for="task-detail-title" class="col-sm-2 control-label">Title</label>
 
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="task-detail-title" placeholder="title"
+                    <input type="text" class="form-control" name="title"
                            value="<%= title %>">
                 </div>
             </div>
+
+            <div class="form-group">
+                <label for="task-detail-title" class="col-sm-2 control-label">Status</label>
+
+                <div class="col-sm-10">
+                    <select name="status" class="form-control">
+                        <option value="notStarted" <%= ('notStarted' === status) ? 'selected' : '' %>>Not Started
+                        </option>
+                        <option value="inProgress" <%= ('inProgress' === status) ? 'selected' : '' %>>In Progress
+                        </option>
+                        <option value="completed" <%= ('completed' === status) ? 'selected' : '' %>>Completed</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="task-detail-title" class="col-sm-2 control-label">Priority</label>
+
+                <div class="col-sm-10">
+                    <select name="priority" class="form-control">
+                        <option value="0" <%= (0 === priority) ? 'selected' : '' %>>Low</option>
+                        <option value="10" <%= (10 === priority) ? 'selected' : '' %>>Medium</option>
+                        <option value="20" <%= (20 === priority) ? 'selected' : '' %>>High</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="task-detail-title" class="col-sm-2 control-label">Notes</label>
+
+                <div class="col-sm-10">
+                    <textarea name="notes" class="form-control"><%= notes%></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </div>
         </form>
+
+
     </div>
 </div>

@@ -9,7 +9,12 @@ define([
     var TaskModel = Backbone.Model.extend({
         idAttribute: '_id',
         defaults: {
-            title: 'New Task' // TODO: Localize
+            title: null,
+            deadlineAt: new Date(),
+            status: 'notStarted',
+            priority: 0,
+            description: null,
+            notes: null
         }
     });
 

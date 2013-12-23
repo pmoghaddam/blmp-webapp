@@ -15,7 +15,11 @@ define([
 
         events: {
             'click .delete-task': 'onDeleteTask',
-            'mouseover': 'onHover'
+            'mouseover': 'onMouseOver'
+        },
+
+        initialize: function() {
+            this.listenTo(this.model, 'change', this.render);
         },
 
         render: function () {
@@ -23,11 +27,12 @@ define([
             return this;
         },
 
-        onDeleteTask: function () {
+        onDeleteTask: function (e) {
+            e.preventDefault();
             this.$el.trigger('task:delete', [this.model]);
         },
 
-        onHover: function () {
+        onMouseOver: function () {
             this.$el.trigger('task:hover', [this.model]);
         }
     });

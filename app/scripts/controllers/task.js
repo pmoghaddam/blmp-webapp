@@ -20,7 +20,8 @@ define([
         events: {
             'task:delete': 'onRemoveTask',
             'task:create': 'onAddTask',
-            'task:hover': 'onHoverTask'
+            'task:hover': 'onHoverTask',
+            'task:update': 'onUpdateTask'
         },
 
         initialize: function () {
@@ -36,22 +37,30 @@ define([
         },
 
         onAddTask: function (e, task) {
-            e.preventDefault();
             io.socket.emit('tasks:create', task);
         },
 
+        onUpdateTask: function (e, task, update) {
+            var mergedUpdate = _.extend({}, {id: task.id}, update);
+            io.socket.emit('tasks:update', mergedUpdate);
+        },
+
         onRemoveTask: function (e, task) {
-            e.preventDefault();
             io.socket.emit('tasks:delete', {id: task.id});
         },
 
-        onCreate: function (task) {
-            this.tasks.add(task);
+        onCreate: function (data) {
+            this.tasks.add(data);
         },
 
         onDelete: function (data) {
             var task = this.tasks.get(data._id);
             this.tasks.remove(task);
+        },
+
+        onUpdate: function (data) {
+            var task = this.tasks.get(data._id);
+            task.set(data);
         },
 
         list: function () {
@@ -62,7 +71,8 @@ define([
                     me.tasks.add(tasks);
 
                     // Socket listeners
-                    // TODO: Refactor
+                    // TODO: Refactor into Backbone.sync override
+                    io.socket.on('tasks:update', _.bind(me.onUpdate, me));
                     io.socket.on('tasks:create', _.bind(me.onCreate, me));
                     io.socket.on('tasks:delete', _.bind(me.onDelete, me));
 
