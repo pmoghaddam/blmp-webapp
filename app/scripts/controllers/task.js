@@ -8,14 +8,19 @@ define([
     'lib/socket-io',
     'services/task',
     'collections/tasks',
-    'views/taskList'
-], function ($, _, Backbone, dispatcher, io, TaskService, Tasks, TasksView) {
+    'views/taskList',
+    'views/layouts/taskLayout'
+], function ($, _, Backbone, dispatcher, io, TaskService, Tasks, TasksView, TaskLayout) {
     'use strict';
 
     var TaskController = Backbone.Controller.extend({
         start: function () {
             // Setup services
             this.taskService = new TaskService();
+
+            // Setup layout
+            this.layout = new TaskLayout();
+            this.layout.render();
 
             // Setup collection and models
             this.tasks = new Tasks();
@@ -48,7 +53,8 @@ define([
                     // Render tasks
                     var view = new TasksView({collection: me.tasks});
                     view.render();
-                    $('#app').append(view.el);
+                    me.layout.tasks.show(view);
+                    $('#app').append(me.layout.el);
 
                     view.on('add', function (task) {
                         io.socket.emit('tasks:create', task);

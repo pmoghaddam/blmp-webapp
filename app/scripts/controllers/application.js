@@ -11,8 +11,6 @@ define([
 
     var ApplicationController = Backbone.Controller.extend({
         start: function () {
-            Backbone.history.start();
-
             // Setup controllers
             this.controllers = {
                 login: new LoginController(),
@@ -23,6 +21,9 @@ define([
             _.each(this.controllers, function (controller) {
                 controller.start();
             });
+
+            // Start history once everything is ready
+            Backbone.history.start();
         }
     });
 
