@@ -6,11 +6,11 @@ define([
 ], function ($, Backbone) {
     'use strict';
 
-    var BasicController = Backbone.Controller.extend({
+    var Controller = Backbone.Controller.extend({
         start: function () {
             // Starting logic of controller
         }
     });
 
-    return BasicController;
+    return Controller;
 });

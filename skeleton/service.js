@@ -7,8 +7,8 @@ define([
 ], function ($, Backbone, q) {
     'use strict';
 
-    var BasicService = Backbone.Service.extend({
+    var Service = Backbone.Service.extend({
     });
 
-    return BasicService;
+    return Service;
 });
