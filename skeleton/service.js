@@ -4,7 +4,7 @@ define([
     'jquery',
     'backbone',
     'q'
-], function ($, Backbone, q) {
+], function ($, Backbone, Q) {
     'use strict';
 
     var Service = Backbone.Service.extend({

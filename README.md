@@ -23,6 +23,10 @@ To achieve this, the Continuous Integration server simply executes `sh deploymen
 * [X] Add Socket.IO
 * [X] Provide basic functionality to showcase live nature
 * [x] Add basic login page
+* Add routing so you go into tasks page right away unless you want to log out
+    * Speeds up feedback loop (no more need to login)
+* Determine how to nest your views
+    * Utilize Marionette's layout?
 * Capture architecture in README
 * Add SSL to both Heroku instances
 * Setup testing, including functional with Phantom.JS and Casper.js

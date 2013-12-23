@@ -17,7 +17,9 @@ define([
             // Setup services
             this.authService = new AuthService();
             this.socketService = new SocketService();
+        },
 
+        login: function () {
             // Initial screen
             this.setView(this.renderLogin());
         },
@@ -66,12 +68,13 @@ define([
 
             this.authService
                 .login(credentials)
-                .then(function () {
-                    me.socketService.connect();
+                .then(function() {
+                    return me.socketService.connect();
                 })
                 .then(function () {
                     me.view.remove();
-                    dispatcher.trigger('loggedIn');
+                    Backbone.history.navigate('tasks', {trigger: true});
+//                    dispatcher.trigger('loggedIn');
                 });
         }
     });

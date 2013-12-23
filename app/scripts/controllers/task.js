@@ -26,7 +26,7 @@ define([
             this.tasks = new Tasks();
 
             // Internal listeners
-            dispatcher.on('loggedIn', this.loadTasks, this);
+            dispatcher.on('loggedIn', this.list, this);
         },
 
         onCreate: function (task) {
@@ -38,7 +38,7 @@ define([
             this.tasks.remove(task);
         },
 
-        loadTasks: function () {
+        list: function () {
             var me = this;
 
             this.taskService.loadTasks()
