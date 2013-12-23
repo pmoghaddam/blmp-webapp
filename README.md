@@ -27,6 +27,7 @@ To achieve this, the Continuous Integration server simply executes `sh deploymen
     * Speeds up feedback loop (no more need to login)
 * Determine how to nest your views
     * Utilize Marionette's layout?
+* Test for appropriate memory clean up
 * Capture architecture in README
 * Add SSL to both Heroku instances
 * Setup testing, including functional with Phantom.JS and Casper.js

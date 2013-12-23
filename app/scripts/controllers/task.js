@@ -8,22 +8,41 @@ define([
     'lib/socket-io',
     'services/task',
     'collections/tasks',
-    'views/taskList',
+    'views/tasks',
+    'views/taskLists',
+    'views/taskDetail',
     'views/layouts/taskLayout'
-], function ($, _, Backbone, dispatcher, io, TaskService, Tasks, TasksView, TaskLayout) {
+], function ($, _, Backbone, dispatcher, io, TaskService, Tasks, TasksView, TaskListsView, TaskDetailView, TaskLayout) {
     'use strict';
 
     var TaskController = Backbone.Controller.extend({
-        start: function () {
-            // Setup layout
-            this.layout = new TaskLayout();
-            this.layout.render();
 
+        events: {
+            'task:delete': 'onRemoveTask',
+            'task:create': 'onAddTask',
+            'task:hover': 'onHoverTask'
+        },
+
+        initialize: function () {
             // Setup collection and models
             this.tasks = new Tasks();
 
             // Internal listeners
             dispatcher.on('loggedIn', this.list, this);
+        },
+
+        onHoverTask: function (e, task) {
+            this.layout.showTask(task);
+        },
+
+        onAddTask: function (e, task) {
+            e.preventDefault();
+            io.socket.emit('tasks:create', task);
+        },
+
+        onRemoveTask: function (e, task) {
+            e.preventDefault();
+            io.socket.emit('tasks:delete', {id: task.id});
         },
 
         onCreate: function (task) {
@@ -48,17 +67,19 @@ define([
                     io.socket.on('tasks:delete', _.bind(me.onDelete, me));
 
                     // Render tasks
-                    var view = new TasksView({collection: me.tasks});
-                    view.render();
-                    me.layout.tasks.show(view);
-                    $('#app').append(me.layout.el);
+                    var tasksView = new TasksView({collection: me.tasks});
+                    var taskListsView = new TaskListsView();
+                    var taskDetail = new TaskDetailView({model: me.tasks.at(0)});
+                    var layout = me.layout = new TaskLayout({
+                        taskLists: taskListsView,
+                        tasks: tasksView,
+                        taskDetail: taskDetail
+                    });
+                    me.$el.append(layout.render().el);
 
-                    view.on('add', function (task) {
-                        io.socket.emit('tasks:create', task);
-                    });
-                    view.on('remove', function (task) {
-                        io.socket.emit('tasks:delete', {id:task.id});
-                    });
+                    var $app = $('#app');
+                    $app.empty();
+                    $app.append(me.el);
                 });
         }
     });

@@ -19,13 +19,6 @@ define([
                 task: new TaskController()
             };
 
-            // Start controllers
-            var controllers = _.clone(this.controllers);
-            delete controllers.application; // Remove special entry
-            _.each(controllers, function (controller) {
-                controller.start();
-            });
-
             // Setup routers
             new MainRouter({controllers: this.controllers});
 

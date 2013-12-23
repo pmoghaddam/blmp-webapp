@@ -4,22 +4,12 @@ define([
     'jquery',
     'backbone',
     'underscore'
-], function ($, Backbone, _) {
+], function ($, Backbone) {
     'use strict';
 
     // Add initialization method here
-    var Controller = Backbone.Controller = function () {
-        // Add state here, although be careful
-    };
-
-    // Utilize same extend mechanism
-    Controller.extend = Backbone.Model.extend;
-
-    // Add methods here
-    _.extend(Controller.prototype, {
-        start: function() {
-
-        }
+    var Controller = Backbone.Controller = Backbone.View.extend({
+        // Customize here
     });
 
     return Controller;

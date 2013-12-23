@@ -5,12 +5,11 @@
     "jquery": "2.0.3",
     "underscore": "1.5.1",
     "backbone": "1.1.0",
-    "requirejs": "2.1.5",
+    "requirejs": "2.1.9",
     "modernizr": "2.6.2",
     "socket.io-client": "0.9.16",
     "q": "0.9.7",
-    "bootstrap": "3.0.3",
-    "marionette": "1.4.1"
+    "bootstrap": "3.0.3"
   },
   "devDependencies": {}
 }
