@@ -8,15 +8,12 @@ define([
     'lib/socket-io',
     'services/task',
     'collections/tasks',
-    'views/tasks',
-    'views/taskLists',
-    'views/taskDetail',
     'views/layouts/taskLayout'
-], function ($, _, Backbone, dispatcher, io, TaskService, Tasks, TasksView, TaskListsView, TaskDetailView, TaskLayout) {
+], function ($, _, Backbone, dispatcher, io, TaskService, Tasks, TaskLayout) {
     'use strict';
 
     var TaskController = Backbone.Controller.extend({
-
+        className: 'task-controller',
         events: {
             'task:delete': 'onRemoveTask',
             'task:create': 'onAddTask',
@@ -27,9 +24,12 @@ define([
         initialize: function () {
             // Setup collection and models
             this.tasks = new Tasks();
+        },
 
-            // Internal listeners
-            dispatcher.on('loggedIn', this.list, this);
+        createLayout: function() {
+            return new TaskLayout({
+                tasks: this.tasks
+            });
         },
 
         onHoverTask: function (e, task) {
@@ -77,19 +77,7 @@ define([
                     io.socket.on('tasks:delete', _.bind(me.onDelete, me));
 
                     // Render tasks
-                    var tasksView = new TasksView({collection: me.tasks});
-                    var taskListsView = new TaskListsView();
-                    var taskDetail = new TaskDetailView({model: me.tasks.at(0)});
-                    var layout = me.layout = new TaskLayout({
-                        taskLists: taskListsView,
-                        tasks: tasksView,
-                        taskDetail: taskDetail
-                    });
-                    me.$el.append(layout.render().el);
-
-                    var $app = $('#app');
-                    $app.empty();
-                    $app.append(me.el);
+                    me.doLayout();
                 });
         }
     });

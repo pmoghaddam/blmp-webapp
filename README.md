@@ -23,10 +23,11 @@ To achieve this, the Continuous Integration server simply executes `sh deploymen
 * [X] Add Socket.IO
 * [X] Provide basic functionality to showcase live nature
 * [x] Add basic login page
-* Add routing so you go into tasks page right away unless you want to log out
+* [X] Add routing so you go into tasks page right away unless you want to log out
     * Speeds up feedback loop (no more need to login)
-* Determine how to nest your views
-    * Utilize Marionette's layout?
+* [X] Determine how to nest your views
+* Improve how view swaps occur, and how parent views are removed
+    * Memory should be cleanly let go
 * Test for appropriate memory clean up
 * Capture architecture in README
 * Add SSL to both Heroku instances

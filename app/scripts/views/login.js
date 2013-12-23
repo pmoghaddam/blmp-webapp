@@ -13,7 +13,7 @@ define([
         template: JST['app/scripts/templates/login.ejs'],
         events: {
             'submit': 'onSubmit',
-            'click .sign-up': 'onRegister'
+            'click .sign-up': 'onSignUp'
         },
 
         render: function () {
@@ -21,15 +21,15 @@ define([
             return this;
         },
 
-        onRegister: function (e) {
+        onSignUp: function (e) {
             e.preventDefault();
-            this.trigger('register');
+            this.$el.trigger('signUp');
         },
 
         onSubmit: function (e) {
-            var data = formHelper.extractFormValues(this.$el.find('form'));
+            var data = formHelper.extractFormValues(this.$('form'));
 
-            this.trigger('login', data);
+            this.$el.trigger('login', [data]);
 
             e.preventDefault();
         }

@@ -12,7 +12,8 @@ define([
     var RegistrationView = Backbone.View.extend({
         template: JST['app/scripts/templates/registration.ejs'],
         events: {
-            'submit': 'onSubmit'
+            'submit': 'onSubmit',
+            'click .cancel-sign-up': 'onCancel'
         },
 
         render: function () {
@@ -23,8 +24,14 @@ define([
         onSubmit: function (e) {
             e.preventDefault();
 
-            var data = formHelper.extractFormValues(this.$el.find('form'));
-            this.trigger('register', data);
+            var data = formHelper.extractFormValues(this.$('form'));
+            this.$el.trigger('register', [data]);
+        },
+
+        onCancel: function(e) {
+            e.preventDefault();
+
+            this.$el.trigger('cancelSignUp');
         }
     });
 

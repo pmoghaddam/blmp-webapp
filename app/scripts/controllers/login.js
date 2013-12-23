@@ -7,65 +7,58 @@ define([
     'lib/dispatcher',
     'services/authentication',
     'services/socket',
-    'views/login',
-    'views/registration'
-], function ($, _, Backbone, dispatcher, AuthService, SocketService, LoginView, RegistrationView) {
+    'views/layouts/loginLayout'
+], function ($, _, Backbone, dispatcher, AuthService, SocketService, LoginLayout) {
     'use strict';
 
     var LoginController = Backbone.Controller.extend({
+        className: 'login-controller',
+        events: {
+            'signUp': 'showRegistration',
+            'cancelSignUp': 'showLogin',
+            'login': 'onLogin',
+            'register': 'onRegister'
+        },
+
         login: function () {
-            // Initial screen
-            this.setView(this.renderLogin());
+            var layout = this.doLayout();
+            layout.showLogin();
         },
 
-        renderLogin: function () {
-            // Setup view
-            var loginView = new LoginView();
-            loginView.on('login', this.onLogin, this);
-            loginView.on('register', this.onSignUp, this);
-            loginView.render();
-            return loginView;
+        register: function () {
+            var layout = this.doLayout();
+            layout.showRegistration();
         },
 
-        renderRegistration: function () {
-            var registrationView = new RegistrationView();
-            registrationView.on('register', this.onRegister, this);
-            registrationView.render();
-            return registrationView;
+        createLayout: function() {
+            return new LoginLayout();
         },
 
-        onSignUp: function () {
-            this.setView(this.renderRegistration());
+        showLogin: function () {
+            this.layout.showLogin();
+            Backbone.history.navigate('login');
         },
 
-        setView: function (view) {
-            if (this.view) {
-                this.view.remove();
-            }
-
-            this.view = view;
-            $('#app').append(view.el);
+        showRegistration: function () {
+            this.layout.showRegistration();
+            Backbone.history.navigate('register');
         },
 
-        onRegister: function (registrationInfo) {
+        onRegister: function (e, registrationInfo) {
             var me = this;
 
             new AuthService()
                 .register(registrationInfo)
                 .then(function () {
-                    me.setView(me.renderLogin());
+                    me.showLogin();
                 });
         },
 
-        onLogin: function (credentials) {
-            var me = this;
-
+        onLogin: function (e, credentials) {
             new AuthService()
                 .login(credentials)
                 .then(function () {
-                    me.view.remove();
                     Backbone.history.navigate('tasks', {trigger: true});
-//                    dispatcher.trigger('loggedIn');
                 });
         }
     });

@@ -31,7 +31,7 @@ define([
         },
 
         onAddTask: function () {
-            var $input = this.$el.find('#add-task-input');
+            var $input = this.$('#add-task-input');
             var task = {title: $input.val()};
             $input.val(''); // Clear it
             this.$el.trigger('task:create', [task]);
@@ -41,7 +41,7 @@ define([
             var taskView = new TaskView({model: task});
             this.views[task.id] = taskView;
 
-            var $listEl = this.$el.find('.add-task-item');
+            var $listEl = this.$('.add-task-item');
             $listEl.after(taskView.render().el);
         },
 

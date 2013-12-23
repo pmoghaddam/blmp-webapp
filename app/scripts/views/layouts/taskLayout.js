@@ -3,22 +3,27 @@
 define([
     'jquery',
     'backbone',
-    'templates'
-], function ($, Backbone, JST) {
+    'templates',
+    'views/tasks',
+    'views/taskLists',
+    'views/taskDetail'
+], function ($, Backbone, JST, TasksView, TaskListsView, TaskDetailView) {
     'use strict';
 
     var Layout = Backbone.View.extend({
         template: JST['app/scripts/templates/layouts/taskLayout.ejs'],
 
         initialize: function (options) {
-            this.taskLists = options.taskLists;
-            this.tasks = options.tasks;
-            this.taskDetail = options.taskDetail;
+            this.taskLists = new TaskListsView();
+            this.tasks = new TasksView({collection: options.tasks});
+            this.taskDetail = new TaskDetailView({model: options.tasks.at(0)});
         },
 
-        showTask: function(task) {
-            this.taskDetail.model = task;
-            this.taskDetail.render();
+        showTask: function (task) {
+            this.taskDetail.remove();
+
+            this.taskDetail = new TaskDetailView({model: task});
+            this.renderItem('#task-detail', this.taskDetail);
         },
 
         render: function () {
@@ -37,9 +42,9 @@ define([
                 return;
             }
 
-            this.$el.find(selector).append(view.render().el);
+            var $area = this.$(selector);
+            $area.append(view.render().el);
         }
-
     });
 
     return Layout;

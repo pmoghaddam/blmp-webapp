@@ -5,8 +5,10 @@ define([
     'backbone',
     'q',
     'services/socket',
-    'services/authentication'
-], function ($, Backbone, Q, SocketService, AuthService) {
+    'services/authentication',
+    'controllers/login',
+    'controllers/task'
+], function ($, Backbone, Q, SocketService, AuthService, LoginController, TaskController) {
     'use strict';
 
     var LoginRouter = Backbone.Router.extend({
@@ -14,11 +16,8 @@ define([
             '': 'tasks',
             'login': 'login',
             'logout': 'logout',
-            'tasks': 'tasks'
-        },
-
-        initialize: function (options) {
-            this.controllers = options.controllers;
+            'tasks': 'tasks',
+            'register': 'register'
         },
 
         authenticate: function () {
@@ -30,22 +29,22 @@ define([
         },
 
         index: function () {
-            var me = this;
-
             this.authenticate().then(function () {
-                me.controllers.login.login();
+                new LoginController().login();
             });
         },
 
         login: function () {
-            this.controllers.login.login();
+            new LoginController().login();
+        },
+
+        register: function () {
+            new LoginController().register();
         },
 
         tasks: function () {
-            var me = this;
-
             this.authenticate().then(function () {
-                me.controllers.task.list();
+                new TaskController().list();
             });
         },
 

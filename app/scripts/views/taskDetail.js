@@ -28,7 +28,7 @@ define([
         onSubmit: function (e) {
             e.preventDefault();
 
-            var $form = this.$el.find('form');
+            var $form = this.$('form');
             var data = formHelper.extractFormValues($form);
             data.priority = parseInt(data.priority, 10);
 
