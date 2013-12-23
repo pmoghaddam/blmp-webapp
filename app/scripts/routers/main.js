@@ -4,8 +4,9 @@ define([
     'jquery',
     'backbone',
     'q',
-    'services/socket'
-], function ($, Backbone, Q, SocketService) {
+    'services/socket',
+    'services/authentication'
+], function ($, Backbone, Q, SocketService, AuthService) {
     'use strict';
 
     var LoginRouter = Backbone.Router.extend({
@@ -18,28 +19,14 @@ define([
 
         initialize: function (options) {
             this.controllers = options.controllers;
-
-            this.socketService = new SocketService();
         },
 
         authenticate: function () {
             var me = this;
-            var deferred = Q.defer();
 
-            var socket = this.socketService.getSocket();
-            var connected = socket && socket.socket.connected;
-            if (connected) {
-                deferred.resolve(true);
-            } else {
-                this.socketService.connect().then(function () {
-                    deferred.resolve(true);
-                }, function () {
-                    me.navigate('login', {trigger: true});
-                    deferred.reject(new Error('Not logged in'));
-                });
-            }
-
-            return deferred.promise;
+            return new AuthService().connect().fail(function () {
+                me.navigate('login', {trigger: true});
+            });
         },
 
         index: function () {
@@ -63,9 +50,11 @@ define([
         },
 
         logout: function () {
-            // TODO: Implement logout logic
+            var me = this;
+            new AuthService().logout().then(function () {
+                me.navigate('login', {trigger: true});
+            });
         }
-
 
     });
 

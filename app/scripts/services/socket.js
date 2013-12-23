@@ -39,6 +39,16 @@ define([
             return deferred.promise;
         },
 
+        disconnect: function () {
+            var deferred = Q.defer();
+
+            socket.disconnect();
+            connected = false;
+            deferred.resolve(true);
+
+            return deferred.promise;
+        },
+
         getSocket: function () {
             return socket;
         }

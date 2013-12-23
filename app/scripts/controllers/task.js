@@ -15,9 +15,6 @@ define([
 
     var TaskController = Backbone.Controller.extend({
         start: function () {
-            // Setup services
-            this.taskService = new TaskService();
-
             // Setup layout
             this.layout = new TaskLayout();
             this.layout.render();
@@ -41,7 +38,7 @@ define([
         list: function () {
             var me = this;
 
-            this.taskService.loadTasks()
+            new TaskService().loadTasks()
                 .then(function (tasks) {
                     me.tasks.add(tasks);
 

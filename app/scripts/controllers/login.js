@@ -13,12 +13,6 @@ define([
     'use strict';
 
     var LoginController = Backbone.Controller.extend({
-        start: function () {
-            // Setup services
-            this.authService = new AuthService();
-            this.socketService = new SocketService();
-        },
-
         login: function () {
             // Initial screen
             this.setView(this.renderLogin());
@@ -56,7 +50,7 @@ define([
         onRegister: function (registrationInfo) {
             var me = this;
 
-            this.authService
+            new AuthService()
                 .register(registrationInfo)
                 .then(function () {
                     me.setView(me.renderLogin());
@@ -66,11 +60,8 @@ define([
         onLogin: function (credentials) {
             var me = this;
 
-            this.authService
+            new AuthService()
                 .login(credentials)
-                .then(function() {
-                    return me.socketService.connect();
-                })
                 .then(function () {
                     me.view.remove();
                     Backbone.history.navigate('tasks', {trigger: true});
