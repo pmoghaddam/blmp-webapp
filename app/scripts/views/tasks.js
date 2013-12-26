@@ -39,14 +39,14 @@ define([
 
         addOne: function (task) {
             var taskView = new TaskView({model: task});
-            this.views[task.id] = taskView;
+            this.views[task.cid] = taskView;
 
             var $listEl = this.$('.add-task-item');
             $listEl.after(taskView.render().el);
         },
 
         removeOne: function (task) {
-            var taskView = this.views[task.id];
+            var taskView = this.views[task.cid];
             taskView.remove();
         },
 

@@ -28,6 +28,8 @@ To achieve this, the Continuous Integration server simply executes `sh deploymen
 * [X] Determine how to nest your views
 * Improve how view swaps occur, and how parent views are removed
     * Memory should be cleanly let go
+* Error handling of acknowledgements that do not go through
+    * If possible, leverage "ack"?
 * Test for appropriate memory clean up
 * Capture architecture in README
 * Add SSL to both Heroku instances

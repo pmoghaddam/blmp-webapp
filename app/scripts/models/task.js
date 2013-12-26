@@ -8,6 +8,7 @@ define([
 
     var TaskModel = Backbone.Model.extend({
         idAttribute: '_id',
+        socketStorage: 'tasks',
         defaults: {
             title: null,
             deadlineAt: new Date(),

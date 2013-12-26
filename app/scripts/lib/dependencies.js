@@ -5,6 +5,7 @@
  */
 define([
     'lib/controller',
-    'lib/service'
+    'lib/service',
+    'lib/sync'
 ], function () {
 });

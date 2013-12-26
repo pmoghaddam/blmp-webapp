@@ -26,9 +26,19 @@ define([
             this.tasks = new Tasks();
         },
 
-        createLayout: function() {
+        createLayout: function () {
             return new TaskLayout({
                 tasks: this.tasks
+            });
+        },
+
+        // TODO: doLayout should be inside layout object
+        list: function () {
+            var me = this;
+
+            me.tasks.fetch();
+            me.tasks.once('sync', function () {
+                me.doLayout();
             });
         },
 
@@ -37,49 +47,20 @@ define([
         },
 
         onAddTask: function (e, task) {
-            io.socket.emit('tasks:create', task);
+            this.tasks.create(task);
         },
 
         onUpdateTask: function (e, task, update) {
-            var mergedUpdate = _.extend({}, {id: task.id}, update);
-            io.socket.emit('tasks:update', mergedUpdate);
+            var model = this.tasks.get(task.id);
+            model.save(update);
         },
 
         onRemoveTask: function (e, task) {
-            io.socket.emit('tasks:delete', {id: task.id});
-        },
-
-        onCreate: function (data) {
-            this.tasks.add(data);
-        },
-
-        onDelete: function (data) {
-            var task = this.tasks.get(data._id);
-            this.tasks.remove(task);
-        },
-
-        onUpdate: function (data) {
-            var task = this.tasks.get(data._id);
-            task.set(data);
-        },
-
-        list: function () {
-            var me = this;
-
-            new TaskService().loadTasks()
-                .then(function (tasks) {
-                    me.tasks.add(tasks);
-
-                    // Socket listeners
-                    // TODO: Refactor into Backbone.sync override
-                    io.socket.on('tasks:update', _.bind(me.onUpdate, me));
-                    io.socket.on('tasks:create', _.bind(me.onCreate, me));
-                    io.socket.on('tasks:delete', _.bind(me.onDelete, me));
-
-                    // Render tasks
-                    me.doLayout();
-                });
+            var model = this.tasks.get(task.id);
+            this.tasks.remove(model);
+            model.destroy();
         }
+
     });
 
     return TaskController;
