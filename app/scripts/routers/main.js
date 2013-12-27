@@ -21,7 +21,7 @@ define([
             '': 'tasks',
             'login': 'login',
             'logout': 'logout',
-            'tasks': 'tasks',
+            'tasks(/:id)': 'tasks',
             'register': 'register'
         },
 
@@ -47,9 +47,9 @@ define([
             new LoginController().register();
         },
 
-        tasks: function () {
+        tasks: function (id) {
             this.authenticate().then(function () {
-                new TaskController().list();
+                new TaskController().list(id);
             }).fail(exceptionHandler);
         },
 

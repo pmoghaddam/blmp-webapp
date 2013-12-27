@@ -28,11 +28,8 @@ define([
 
         initialize: function () {
             // Setup collection and models
-            this.tasks = new Tasks();
             this.taskLists = new TaskLists();
-
-            // Current tasklist
-            this.taskList = new TaskList();
+            this.taskLists.fetch();
         },
 
         createLayout: function () {
@@ -43,19 +40,16 @@ define([
         },
 
         // TODO: doLayout should be inside layout object
-        list: function () {
+        list: function (taskListId) {
+            // TODO: avoid memory leak here
+            this.taskListId = taskListId;
+            this.tasks = new Tasks([], {taskList: taskListId});
             this.tasks.fetch();
-            this.taskLists.fetch();
             this.doLayout();
         },
 
         onSelectTaskList: function (e, taskList) {
-            this.taskList = taskList;
-
-            // TODO: avoid memory leak here
-            this.tasks = new Tasks([], {taskList: taskList.id});
-            this.tasks.fetch();
-            this.doLayout();
+            Backbone.history.navigate('tasks/' + taskList.id, {trigger: true});
         },
 
         onAddTaskList: function (e, taskList) {
@@ -68,7 +62,7 @@ define([
 
         onAddTask: function (e, task) {
             // Append task list to task
-            task.taskList = this.taskList.id;
+            task.taskList = this.taskListId;
 
             this.tasks.create(task);
         },
