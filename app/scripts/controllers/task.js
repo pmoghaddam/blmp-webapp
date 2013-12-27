@@ -23,7 +23,8 @@ define([
             'task:update': 'onUpdateTask',
 
             'taskList:create': 'onAddTaskList',
-            'taskList:select': 'onSelectTaskList'
+            'taskList:select': 'onSelectTaskList',
+            'taskList:delete': 'onRemoveTaskList'
         },
 
         initialize: function () {
@@ -49,11 +50,18 @@ define([
         },
 
         onSelectTaskList: function (e, taskList) {
+            // OPTIMIZE: No need to reload entire page
             Backbone.history.navigate('tasks/' + taskList.id, {trigger: true});
         },
 
         onAddTaskList: function (e, taskList) {
             this.taskLists.create(taskList);
+        },
+
+        onRemoveTaskList: function (e, taskList) {
+            var model = this.taskLists.get(taskList.id);
+            this.taskLists.remove(model);
+            model.destroy();
         },
 
         onHoverTask: function (e, task) {

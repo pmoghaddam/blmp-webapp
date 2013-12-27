@@ -10,11 +10,12 @@ define([
 
     var View = Backbone.View.extend({
         tagName: 'button',
-        className: 'btn btn-default',
+        className: 'btn btn-default task-list-item',
         template: JST['app/scripts/templates/taskList.ejs'],
 
         events: {
-            'click': 'onClick'
+            'click': 'onClick',
+            'click .delete-task': 'onDelete'
         },
 
         initialize: function() {
@@ -28,6 +29,11 @@ define([
 
         onClick: function() {
             this.$el.trigger('taskList:select', [this.model]);
+        },
+
+        onDelete: function (e) {
+            e.preventDefault();
+            this.$el.trigger('taskList:delete', [this.model]);
         }
     });
 
