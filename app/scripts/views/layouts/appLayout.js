@@ -11,6 +11,11 @@ define([
         el: '#app',
 
         show: function (view) {
+            // Do nothing for the same view
+            if (view === this.showing) {
+                return;
+            }
+
             this.reset();
 
             this.showing = view;

@@ -11,6 +11,11 @@ define([
 ], function ($, Backbone, Q, SocketService, AuthService, LoginController, TaskController) {
     'use strict';
 
+    var exceptionHandler = function(err) {
+        // TODO: Isolate to development eventually
+        console.error(err.message);
+    };
+
     var LoginRouter = Backbone.Router.extend({
         routes: {
             '': 'tasks',
@@ -25,13 +30,13 @@ define([
 
             return new AuthService().connect().fail(function () {
                 me.navigate('login', {trigger: true});
-            });
+            }).fail(exceptionHandler);
         },
 
         index: function () {
             this.authenticate().then(function () {
                 new LoginController().login();
-            });
+            }).fail(exceptionHandler);
         },
 
         login: function () {
@@ -45,14 +50,14 @@ define([
         tasks: function () {
             this.authenticate().then(function () {
                 new TaskController().list();
-            });
+            }).fail(exceptionHandler);
         },
 
         logout: function () {
             var me = this;
             new AuthService().logout().then(function () {
                 me.navigate('login', {trigger: true});
-            });
+            }).fail(exceptionHandler);
         }
 
     });

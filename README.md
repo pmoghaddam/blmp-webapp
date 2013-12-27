@@ -26,8 +26,10 @@ To achieve this, the Continuous Integration server simply executes `sh deploymen
 * [X] Add routing so you go into tasks page right away unless you want to log out
     * Speeds up feedback loop (no more need to login)
 * [X] Determine how to nest your views
+* Improve Sync logic
 * Improve how view swaps occur, and how parent views are removed
     * Memory should be cleanly let go
+* Global exception handler
 * Error handling of acknowledgements that do not go through
     * If possible, leverage "ack"?
 * Test for appropriate memory clean up

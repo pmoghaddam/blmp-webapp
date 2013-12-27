@@ -14,13 +14,14 @@ define([
         template: JST['app/scripts/templates/layouts/taskLayout.ejs'],
 
         initialize: function (options) {
-            this.taskLists = new TaskListsView();
+            this.taskLists = new TaskListsView({collection: options.taskLists});
             this.tasks = new TasksView({collection: options.tasks});
-            this.taskDetail = new TaskDetailView({model: options.tasks.at(0)});
         },
 
         showTask: function (task) {
-            this.taskDetail.remove();
+            if (this.taskDetail) {
+                this.taskDetail.remove();
+            }
 
             this.taskDetail = new TaskDetailView({model: task});
             this.renderItem('#task-detail', this.taskDetail);
@@ -32,7 +33,6 @@ define([
             // Add children
             this.renderItem('#task-list-all', this.taskLists);
             this.renderItem('#task-list', this.tasks);
-            this.renderItem('#task-detail', this.taskDetail);
 
             return this;
         },

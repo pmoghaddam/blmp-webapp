@@ -58,6 +58,12 @@ define([
                 break;
             }
 
+            // Merge with additional params (if exists)
+            if (model.collection) {
+                _.extend(data, model.collection.socketParams);
+            }
+            _.extend(data, model.socketParams);
+
             io.socket.emit(event, data);
         },
 

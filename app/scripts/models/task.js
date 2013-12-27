@@ -9,6 +9,7 @@ define([
     var TaskModel = Backbone.Model.extend({
         idAttribute: '_id',
         socketStorage: 'tasks',
+        socketParams: null, // Allows option to restrict further
         defaults: {
             title: null,
             deadlineAt: new Date(),
@@ -16,6 +17,10 @@ define([
             priority: 0,
             description: null,
             notes: null
+        },
+
+        initialize: function () {
+            this.socketParams = {taskList: this.get('taskList')};
         }
     });
 

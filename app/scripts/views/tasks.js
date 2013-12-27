@@ -13,12 +13,13 @@ define([
         template: JST['app/scripts/templates/tasks.ejs'],
 
         events: {
-            'change #add-task-input': 'onAddTask'
+            'change #add-task-input': 'onAdd'
         },
 
         initialize: function () {
             this.collection.on('add', this.addOne, this);
             this.collection.on('remove', this.removeOne, this);
+            this.collection.on('sync', this.render, this);
 
             this.views = {};
         },
@@ -30,7 +31,7 @@ define([
             return this;
         },
 
-        onAddTask: function () {
+        onAdd: function () {
             var $input = this.$('#add-task-input');
             var task = {title: $input.val()};
             $input.val(''); // Clear it

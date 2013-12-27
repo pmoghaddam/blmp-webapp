@@ -11,7 +11,11 @@ define([
         model: Task,
         socketStorage: 'tasks',
 
-        initialize: function () {
+        initialize: function (models, options) {
+            if (options) {
+                this.socketParams = {taskList: options.taskList};
+            }
+
             // TODO: Anyway to make this automatic?
             this.initializeSocketStorage();
         }
