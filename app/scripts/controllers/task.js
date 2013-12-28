@@ -10,8 +10,9 @@ define([
     'models/taskList',
     'collections/tasks',
     'collections/taskLists',
-    'views/layouts/taskLayout'
-], function ($, _, Backbone, dispatcher, io, TaskService, TaskList, Tasks, TaskLists, TaskLayout) {
+    'views/layouts/taskLayout',
+    'controllers/collaborators'
+], function ($, _, Backbone, dispatcher, io, TaskService, TaskList, Tasks, TaskLists, TaskLayout, CollaboratorsController) {
     'use strict';
 
     var TaskController = Backbone.Controller.extend({
@@ -24,7 +25,9 @@ define([
 
             'taskList:create': 'onAddTaskList',
             'taskList:select': 'onSelectTaskList',
-            'taskList:delete': 'onRemoveTaskList'
+            'taskList:delete': 'onRemoveTaskList',
+
+            'taskList:collaborators': 'onCollaborators'
         },
 
         initialize: function () {
@@ -47,6 +50,15 @@ define([
             this.tasks = new Tasks([], {taskList: taskListId});
             this.tasks.fetch();
             this.doLayout();
+        },
+
+        onCollaborators: function (e, taskList) {
+            this.collaborators(taskList.id);
+        },
+
+        collaborators: function (taskListId) {
+            var taskList = this.taskLists.get(taskListId);
+            new CollaboratorsController().show(taskList);
         },
 
         onSelectTaskList: function (e, taskList) {

@@ -8,13 +8,19 @@ require.config({
         backbone: {
             deps: ['underscore', 'jquery'],
             exports: 'Backbone'
+        },
+        bootstrap: {
+            deps: ['jquery']
         }
     },
     paths: {
         q: '../bower_components/q/q',
         jquery: '../bower_components/jquery/jquery',
         backbone: '../bower_components/backbone/backbone',
-        underscore: '../bower_components/underscore/underscore'
+        underscore: '../bower_components/underscore/underscore',
+
+        // Bootstrap components
+        'bootstrap.modal': '../bower_components/bootstrap/js/modal'
     }
 });
 

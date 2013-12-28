@@ -26,6 +26,8 @@ To achieve this, the Continuous Integration server simply executes `sh deploymen
 * [X] Add routing so you go into tasks page right away unless you want to log out
     * Speeds up feedback loop (no more need to login)
 * [X] Determine how to nest your views
+* Small bug fixes
+* Utilize Marionette.JS to simplify list & view item logic?
 * Improve Sync logic
 * Improve how view swaps occur, and how parent views are removed
     * Memory should be cleanly let go
@@ -42,6 +44,9 @@ To achieve this, the Continuous Integration server simply executes `sh deploymen
 * Understand how to keep socket.io as separate file? (prevent large JS files)
 * Utilize CryptoJS (AES-256 bit)
 * Prevent XSS (security attacks)
+
+## Tasks - Lower Priority
+* Rename all files to match what they do. Very confusing right now!
 
 ## Big Picture
 * Have application start on access

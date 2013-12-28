@@ -15,10 +15,11 @@ define([
 
         events: {
             'click': 'onClick',
-            'click .delete-task': 'onDelete'
+            'click .delete-task': 'onDelete',
+            'click .collaborators': 'onCollaborators'
         },
 
-        initialize: function() {
+        initialize: function () {
             this.listenTo(this.model, 'change', this.render);
         },
 
@@ -27,13 +28,18 @@ define([
             return this;
         },
 
-        onClick: function() {
+        onClick: function () {
             this.$el.trigger('taskList:select', [this.model]);
         },
 
         onDelete: function (e) {
             e.preventDefault();
             this.$el.trigger('taskList:delete', [this.model]);
+        },
+
+        onCollaborators: function (e) {
+            e.preventDefault();
+            this.$el.trigger('taskList:collaborators', [this.model]);
         }
     });
 
