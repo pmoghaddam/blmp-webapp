@@ -6,8 +6,8 @@ define([
     'q',
     'services/socket',
     'services/authentication',
-    'controllers/login',
-    'controllers/task'
+    'controllers/loginController',
+    'controllers/taskController'
 ], function ($, Backbone, Q, SocketService, AuthService, LoginController, TaskController) {
     'use strict';
 

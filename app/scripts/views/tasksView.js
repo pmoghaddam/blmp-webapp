@@ -20,10 +20,6 @@ define([
             'change #add-task-input': 'onAdd'
         },
 
-        onRender: function () {
-            this.trigger('not');
-        },
-
         onAdd: function () {
             var $input = this.$('#add-task-input');
             var task = {title: $input.val()};

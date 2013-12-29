@@ -3,56 +3,36 @@
 define([
     'jquery',
     'underscore',
-    'backbone',
+    'marionette',
     'templates',
-    'views/login',
-    'views/registration'
-], function ($, _, Backbone, JST, LoginView, RegistrationView) {
+    'views/loginView',
+    'views/registrationView',
+    'controllers/mediators/registrationMediator',
+    'controllers/mediators/loginMediator'
+], function ($, _, Marionette, JST, LoginView, RegistrationView, RegistrationMediator, LoginMediator) {
     'use strict';
 
-    var View = Backbone.View.extend({
+    var Layout = Marionette.Layout.extend({
         template: JST['app/scripts/templates/layouts/loginLayout.ejs'],
         className: 'login-layout',
 
-        initialize: function () {
-            this.login = new LoginView();
-            this.registration = new RegistrationView();
-
-            // Internal events
-            this.listenTo(this.login, 'register', this.showRegistration);
+        regions: {
+            mainRegion: '#main-region'
         },
 
         showLogin: function () {
-            this.login.$el.show();
-            this.registration.$el.hide();
+            var view = new LoginView();
+            new LoginMediator({view: view, layout: this});
+            this.mainRegion.show(view);
         },
 
         showRegistration: function () {
-            this.login.$el.hide();
-            this.registration.$el.show();
-        },
-
-        render: function () {
-            this.$el.html(this.template());
-
-            // Add children
-            this.renderItem('#login-form', this.login);
-            this.renderItem('#registration-form', this.registration);
-
-            // Hidden registration
-            this.registration.$el.hide();
-
-            return this;
-        },
-
-        renderItem: function (selector, view) {
-            if (!view || !view.render) {
-                return;
-            }
-
-            return this.$el.find(selector).append(view.render().el);
+            var view = new RegistrationView();
+            new RegistrationMediator({view: view, layout: this});
+            this.mainRegion.show(view);
         }
+
     });
 
-    return View;
+    return Layout;
 });

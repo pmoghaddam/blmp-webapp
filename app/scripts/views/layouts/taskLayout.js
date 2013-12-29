@@ -32,8 +32,7 @@ define([
             this.taskDetailRegion.show(taskDetailView);
         },
 
-        // Automatically called by Marionette once the layout prepares itself
-        onRender: function () {
+        show: function () {
             var taskListsView = this.createTaskListsView(this.taskLists);
             var tasksView = this.createTasksView(this.tasks);
 

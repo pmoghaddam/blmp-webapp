@@ -7,7 +7,7 @@ define([
     'collections/tasks',
     'collections/taskLists',
     'views/layouts/taskLayout',
-    'controllers/collaborators'
+    'controllers/collaboratorsController'
 ], function ($, _, Backbone, Tasks, TaskLists, TaskLayout, CollaboratorsController) {
     'use strict';
 
@@ -30,6 +30,7 @@ define([
             this.listenTo(Backbone, 'taskList:select', this.onSelectTaskList, this);
 
             this.showLayout(layout);
+            layout.show();
         },
 
         collaborators: function (taskListId) {

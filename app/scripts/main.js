@@ -31,7 +31,7 @@ require.config({
 
 require([
     'lib/dependencies', // Important to load (loads other properties)
-    'controllers/application'
+    'controllers/applicationController'
 ], function (config, ApplicationController) {
     new ApplicationController().start();
 });
