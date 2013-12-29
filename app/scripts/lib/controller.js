@@ -13,16 +13,16 @@ define([
     var Controller = Backbone.Controller = Marionette.Controller.extend({
 
         showLayout: function (layout) {
-            layout.on('close', this.close, this);
+            layout.on('close', this.destruct, this);
             appLayout.show(layout);
         },
 
         listenToView: function (view) {
             // One controller per view, avoid reuse
-            if (this.listeningToView) {
+            if (this._listeningToView) {
                 console.error('Do not reuse controllers');
             } else {
-                this.listeningToView = view;
+                this._listeningToView = view;
             }
 
             // Views track controllers that are listening to them
@@ -39,7 +39,31 @@ define([
             }
 
             // Destroy when view is destroyed
-            view.on('close', this.close, this);
+            view.on('close', this.destruct, this);
+        },
+
+        destruct: function () {
+            if (this._destructed) {
+                return;
+            }
+            this._destructed = true;
+
+            _.each(this.objectsToDestruct, function (object) {
+                if (_.isFunction(object.close)) {
+                    object.close();
+                }
+            });
+
+            this.close();
+        },
+
+        /**
+         * Important for items such as collections that are listening
+         * to sockets.
+         */
+        destructOnClose: function (object) {
+            this.objectsToDestruct = this.objectsToDestruct || [];
+            this.objectsToDestruct.push(object);
         }
 
     });

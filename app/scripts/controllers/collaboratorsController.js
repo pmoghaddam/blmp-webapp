@@ -20,6 +20,7 @@ define([
             new TaskService().getCollaborators(taskList)
                 .then(function (users) {
                     me.collection = new UsersCollection(users);
+                    me.destructOnClose(me.collection);
 
                     me.view = new CollaboratorsView({model: taskList, collection: me.collection});
                     new CollaboratorsMediator({view: me.view, model: taskList, collection: me.collection});

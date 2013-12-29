@@ -16,9 +16,11 @@ define([
         list: function (taskListId) {
             this.taskLists = new TaskLists();
             this.taskLists.fetch();
+            this.destructOnClose(this.taskLists);
 
             this.tasks = new Tasks([], {taskList: taskListId});
             this.tasks.fetch();
+            this.destructOnClose(this.tasks);
 
             var layout = this.layout = new TaskLayout({
                 tasks: this.tasks,

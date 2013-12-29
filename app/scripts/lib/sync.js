@@ -30,32 +30,32 @@ define([
             var data = {};
 
             switch (method) {
-            case 'read':
-                if (model instanceof Backbone.Model) {
+                case 'read':
+                    if (model instanceof Backbone.Model) {
+                        data = model.toJSON();
+                        event = namespace + ':show';
+                    } else {
+                        event = namespace + ':list';
+                    }
+                    // Not globally impacting (i.e. not mutating)
+                    io.socket.once(event, function (data) {
+                        options.success(data);
+                    });
+                    break;
+                case 'create':
+                    event = namespace + ':create';
+                    model.set({guid: guid()});
                     data = model.toJSON();
-                    event = namespace + ':show';
-                } else {
-                    event = namespace + ':list';
-                }
-                // Not globally impacting (i.e. not mutating)
-                io.socket.once(event, function (data) {
-                    options.success(data);
-                });
-                break;
-            case 'create':
-                event = namespace + ':create';
-                model.set({guid: guid()});
-                data = model.toJSON();
-                break;
-            case 'update':
-                event = namespace + ':update';
-                data = model.changedAttributes();
-                data.id = model.id;
-                break;
-            case 'delete':
-                event = namespace + ':delete';
-                data = {id: model.id};
-                break;
+                    break;
+                case 'update':
+                    event = namespace + ':update';
+                    data = model.changedAttributes();
+                    data.id = model.id;
+                    break;
+                case 'delete':
+                    event = namespace + ':delete';
+                    data = {id: model.id};
+                    break;
             }
 
             // Merge with additional params (if exists)
@@ -84,12 +84,27 @@ define([
     };
 
     // Enhance collections
+    var sync = Backbone.Collection.prototype.sync;
     _.extend(Backbone.Collection.prototype, {
+        sync: function () {
+            if (this.socketStorage && !this._initializedSocketStorage) {
+                this.initializeSocketStorage();
+            }
+
+            sync.apply(this, arguments);
+        },
+
         initializeSocketStorage: function () {
+            this._initializedSocketStorage = true;
             var namespace = this.socketStorage;
             var me = this;
 
-            io.socket.on(namespace + ':create', function (data) {
+            var createEvent = namespace + ':create';
+            var updateEvent = namespace + ':update';
+            var deleteEvent = namespace + ':delete';
+
+            var socketEvents = this.socketEvents = {};
+            socketEvents[createEvent] = function (data) {
                 var model = me.findWhere({guid: data.guid});
 
                 // Distinguish between whether you made it or not
@@ -98,18 +113,29 @@ define([
                 } else {
                     me.add(data);
                 }
-            });
-
-            io.socket.on(namespace + ':update', function (data) {
+            };
+            socketEvents[updateEvent] = function (data) {
                 me.add(data, {merge: true});
-            });
-
-            io.socket.on(namespace + ':delete', function (data) {
+            };
+            socketEvents[deleteEvent] = function (data) {
                 var model = me.get(data._id);
                 if (model) {
                     me.remove(model);
                 }
-            });
+            };
+
+            // Bind events
+            for (var key in socketEvents) {
+                io.socket.on(key, socketEvents[key]);
+            }
+        },
+
+        close: function () {
+            // Unbind events
+            var socketEvents = this.socketEvents;
+            for (var key in socketEvents) {
+                io.socket.removeListener(key, socketEvents[key]);
+            }
         }
     });
 

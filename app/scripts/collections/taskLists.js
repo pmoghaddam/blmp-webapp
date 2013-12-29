@@ -9,12 +9,7 @@ define([
 
     var Collection = Backbone.Collection.extend({
         model: TaskList,
-        socketStorage: 'taskLists',
-
-        initialize: function () {
-            // TODO: Anyway to make this automatic?
-            this.initializeSocketStorage();
-        }
+        socketStorage: 'taskLists'
     });
 
     return Collection;

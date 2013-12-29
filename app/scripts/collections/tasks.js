@@ -15,9 +15,6 @@ define([
             if (options) {
                 this.socketParams = {taskList: options.taskList};
             }
-
-            // TODO: Anyway to make this automatic?
-            this.initializeSocketStorage();
         }
     });
 
