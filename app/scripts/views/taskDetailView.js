@@ -4,25 +4,21 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'marionette',
     'templates',
     'lib/formHelper'
-], function ($, _, Backbone, JST, formHelper) {
+], function ($, _, Backbone, Marionette, JST, formHelper) {
     'use strict';
 
-    var View = Backbone.View.extend({
+    var View = Marionette.ItemView.extend({
         template: JST['app/scripts/templates/taskDetail.ejs'],
 
         events: {
             'submit': 'onSubmit'
         },
 
-        initialize: function() {
-            this.listenTo(this.model, 'change', this.render);
-        },
-
-        render: function () {
-            this.$el.html(this.template(this.model.attributes));
-            return this;
+        modelEvents: {
+            'change': 'render'
         },
 
         onSubmit: function (e) {
