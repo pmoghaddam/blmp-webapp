@@ -3,36 +3,19 @@
 define([
     'jquery',
     'underscore',
-    'backbone'
-], function ($, _, Backbone) {
+    'marionette'
+], function ($, _, Marionette) {
     'use strict';
 
-    var View = Backbone.View.extend({
-        el: '#app',
+    var View = Marionette.Layout.extend({
+        el: 'body',
 
-        show: function (view) {
-            // Do nothing for the same view
-            if (view === this.showing) {
-                return;
-            }
-
-            this.reset();
-
-            this.showing = view;
-            this.$el.append(view.el);
+        regions: {
+            app: '#app'
         },
 
-        reset: function () {
-            if (!this.showing) {
-                return;
-            }
-
-            // Clean application
-            this.$el.empty();
-
-            // Clean view itself
-            this.showing.remove();
-            this.showing = null;
+        show: function (view) {
+            this.app.show(view);
         }
     });
 
