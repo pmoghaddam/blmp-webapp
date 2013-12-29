@@ -5,7 +5,7 @@ define([
     'backbone',
     'templates',
     'views/tasksView',
-    'views/taskLists',
+    'views/taskListsView',
     'views/taskDetailView'
 ], function ($, Backbone, JST, TasksView, TaskListsView, TaskDetailView) {
     'use strict';

@@ -4,14 +4,15 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'marionette',
     'templates'
-], function ($, _, Backbone, JST) {
+], function ($, _, Backbone, Marionette, JST) {
     'use strict';
 
-    var View = Backbone.View.extend({
+    var View = Marionette.ItemView.extend({
         tagName: 'button',
         className: 'btn btn-default task-list-item',
-        template: JST['app/scripts/templates/taskList.ejs'],
+        template: JST['app/scripts/templates/taskListView.ejs'],
 
         events: {
             'click': 'onClick',
@@ -19,13 +20,8 @@ define([
             'click .collaborators': 'onCollaborators'
         },
 
-        initialize: function () {
-            this.listenTo(this.model, 'change', this.render);
-        },
-
-        render: function () {
-            this.$el.html(this.template(this.model.attributes));
-            return this;
+        modelEvents: {
+            'change': 'render'
         },
 
         onClick: function () {
