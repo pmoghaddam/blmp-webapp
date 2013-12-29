@@ -2,49 +2,39 @@
 
 define([
     'jquery',
-    'backbone',
+    'marionette',
     'templates',
     'views/tasksView',
     'views/taskListsView',
     'views/taskDetailView'
-], function ($, Backbone, JST, TasksView, TaskListsView, TaskDetailView) {
+], function ($, Marionette, JST, TasksView, TaskListsView, TaskDetailView) {
     'use strict';
 
-    var Layout = Backbone.View.extend({
+    var Layout = Marionette.Layout.extend({
         template: JST['app/scripts/templates/layouts/taskLayout.ejs'],
 
+        regions: {
+            taskDetail: '#task-detail',
+            taskLists: '#task-list-all',
+            tasks: '#task-list'
+        },
+
         initialize: function (options) {
-            this.taskLists = new TaskListsView({collection: options.taskLists});
-            this.tasks = new TasksView({collection: options.tasks});
+            this.taskListsView = new TaskListsView({collection: options.taskLists});
+            this.tasksView = new TasksView({collection: options.tasks});
         },
 
         showTask: function (task) {
-            if (this.taskDetail) {
-                this.taskDetail.remove();
-            }
-
-            this.taskDetail = new TaskDetailView({model: task});
-            this.renderItem('#task-detail', this.taskDetail);
+            var taskDetailView = new TaskDetailView({model: task});
+            this.taskDetail.show(taskDetailView);
         },
 
-        render: function () {
-            this.$el.html(this.template());
-
-            // Add children
-            this.renderItem('#task-list-all', this.taskLists);
-            this.renderItem('#task-list', this.tasks);
-
-            return this;
-        },
-
-        renderItem: function (selector, view) {
-            if (!view || !view.render) {
-                return;
-            }
-
-            var $area = this.$(selector);
-            $area.append(view.render().el);
+        // Automatically called by Marionette once the layout prepares itself
+        onRender: function () {
+            this.taskLists.show(this.taskListsView);
+            this.tasks.show(this.tasksView);
         }
+
     });
 
     return Layout;
