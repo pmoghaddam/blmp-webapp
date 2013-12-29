@@ -7,7 +7,7 @@ define([
     'marionette',
     'templates',
     'views/taskView',
-    'mediators/taskMediator'
+    'controllers/mediators/taskMediator'
 ], function ($, _, Backbone, Marionette, JST, TaskView, TaskMediator) {
     'use strict';
 

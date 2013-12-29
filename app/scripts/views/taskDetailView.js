@@ -7,7 +7,7 @@ define([
     'marionette',
     'templates',
     'lib/formHelper',
-    'mediators/taskDetailMediator'
+    'controllers/mediators/taskDetailMediator'
 ], function ($, _, Backbone, Marionette, JST, formHelper, TaskDetailMediator) {
     'use strict';
 

@@ -7,7 +7,7 @@ define([
     'marionette',
     'templates',
     'views/taskListView',
-    'mediators/taskListMediator'
+    'controllers/mediators/taskListMediator'
 ], function ($, _, Backbone, Marionette, JST, TaskListView, TaskListMediator) {
     'use strict';
 

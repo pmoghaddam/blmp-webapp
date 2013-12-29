@@ -6,7 +6,7 @@ define([
     'marionette',
     'templates',
     'views/collaboratorView',
-    'mediators/collaboratorsMediator',
+    'controllers/mediators/collaboratorsMediator',
     'bootstrap.modal'
 ], function ($, _, Marionette, JST, CollaboratorItemView, CollaboratorsMediator) {
     'use strict';
