@@ -11,7 +11,7 @@ define([
     'use strict';
 
     var View = Marionette.ItemView.extend({
-        template: JST['app/scripts/templates/taskDetail.ejs'],
+        template: JST['app/scripts/templates/taskDetailView.ejs'],
 
         events: {
             'submit': 'onSubmit'

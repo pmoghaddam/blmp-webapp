@@ -4,11 +4,10 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'lib/dispatcher',
     'services/authentication',
     'services/socket',
     'views/layouts/loginLayout'
-], function ($, _, Backbone, dispatcher, AuthService, SocketService, LoginLayout) {
+], function ($, _, Backbone, AuthService, SocketService, LoginLayout) {
     'use strict';
 
     var LoginController = Backbone.Controller.extend({

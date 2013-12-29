@@ -4,14 +4,14 @@ define([
     'jquery',
     'backbone',
     'underscore',
-    'routers/main'
-], function ($, Backbone, _, MainRouter) {
+    'routers/router'
+], function ($, Backbone, _, Router) {
     'use strict';
 
     var ApplicationController = Backbone.Controller.extend({
         start: function () {
             // Setup routers
-            new MainRouter();
+            new Router();
 
             // Start history once everything is ready
             Backbone.history.start();
