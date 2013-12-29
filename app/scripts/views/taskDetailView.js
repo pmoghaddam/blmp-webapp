@@ -6,8 +6,9 @@ define([
     'backbone',
     'marionette',
     'templates',
-    'lib/formHelper'
-], function ($, _, Backbone, Marionette, JST, formHelper) {
+    'lib/formHelper',
+    'mediators/taskDetailMediator'
+], function ($, _, Backbone, Marionette, JST, formHelper, TaskDetailMediator) {
     'use strict';
 
     var View = Marionette.ItemView.extend({
@@ -21,6 +22,10 @@ define([
             'change': 'render'
         },
 
+        initialize: function (options) {
+            new TaskDetailMediator({view: this, model: options.model});
+        },
+
         onSubmit: function (e) {
             e.preventDefault();
 
@@ -28,7 +33,7 @@ define([
             var data = formHelper.extractFormValues($form);
             data.priority = parseInt(data.priority, 10);
 
-            this.$el.trigger('task:update', [this.model, data]);
+            this.trigger('task:update', this, this.model, data);
         }
     });
 

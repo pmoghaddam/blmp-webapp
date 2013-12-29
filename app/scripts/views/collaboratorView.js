@@ -11,16 +11,12 @@ define([
     var View = Marionette.ItemView.extend({
         template: JST['app/scripts/templates/collaboratorView.ejs'],
 
-        events: {
-            'click .delete-user': 'onDelete'
+        triggers: {
+            'click .delete-user': 'delete'
         },
 
         modelEvents: {
             'change': 'render'
-        },
-
-        onDelete: function () {
-            this.$el.trigger('collaborator:delete', [this.model]);
         }
     });
 

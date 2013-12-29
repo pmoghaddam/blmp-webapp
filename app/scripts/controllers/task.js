@@ -4,56 +4,32 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'lib/dispatcher',
-    'lib/socket-io',
-    'services/task',
-    'models/taskList',
     'collections/tasks',
     'collections/taskLists',
     'views/layouts/taskLayout',
     'controllers/collaborators'
-], function ($, _, Backbone, dispatcher, io, TaskService, TaskList, Tasks, TaskLists, TaskLayout, CollaboratorsController) {
+], function ($, _, Backbone, Tasks, TaskLists, TaskLayout, CollaboratorsController) {
     'use strict';
 
     var TaskController = Backbone.Controller.extend({
-        className: 'task-controller',
-        events: {
-            'task:delete': 'onRemoveTask',
-            'task:create': 'onAddTask',
-            'task:hover': 'onHoverTask',
-            'task:update': 'onUpdateTask',
 
-            'taskList:create': 'onAddTaskList',
-            'taskList:select': 'onSelectTaskList',
-            'taskList:delete': 'onRemoveTaskList',
-
-            'taskList:collaborators': 'onCollaborators'
-        },
-
-        initialize: function () {
-            // Setup collection and models
+        list: function (taskListId) {
             this.taskLists = new TaskLists();
             this.taskLists.fetch();
-        },
 
-        createLayout: function () {
-            return new TaskLayout({
+            this.tasks = new Tasks([], {taskList: taskListId});
+            this.tasks.fetch();
+
+            var layout = this.layout = new TaskLayout({
                 tasks: this.tasks,
                 taskLists: this.taskLists
             });
-        },
 
-        // TODO: doLayout should be inside layout object
-        list: function (taskListId) {
-            // TODO: avoid memory leak here
-            this.taskListId = taskListId;
-            this.tasks = new Tasks([], {taskList: taskListId});
-            this.tasks.fetch();
-            this.doLayout();
-        },
+            this.listenTo(Backbone, 'task:select', this.onSelectTask, this);
+            this.listenTo(Backbone, 'taskList:collaborators', this.onCollaborators, this);
+            this.listenTo(Backbone, 'taskList:select', this.onSelectTaskList, this);
 
-        onCollaborators: function (e, taskList) {
-            this.collaborators(taskList.id);
+            this.showLayout(layout);
         },
 
         collaborators: function (taskListId) {
@@ -61,42 +37,18 @@ define([
             new CollaboratorsController().show(taskList);
         },
 
-        onSelectTaskList: function (e, taskList) {
-            // OPTIMIZE: No need to reload entire page
-            Backbone.history.navigate('tasks/' + taskList.id, {trigger: true});
+        onCollaborators: function (taskList) {
+            this.collaborators(taskList.id);
         },
 
-        onAddTaskList: function (e, taskList) {
-            this.taskLists.create(taskList);
-        },
-
-        onRemoveTaskList: function (e, taskList) {
-            var model = this.taskLists.get(taskList.id);
-            this.taskLists.remove(model);
-            model.destroy();
-        },
-
-        onHoverTask: function (e, task) {
+        onSelectTask: function (task) {
             this.layout.showTask(task);
         },
 
-        onAddTask: function (e, task) {
-            // Append task list to task
-            task.taskList = this.taskListId;
-
-            this.tasks.create(task);
-        },
-
-        onUpdateTask: function (e, task, update) {
-            var model = this.tasks.get(task.id);
-            model.save(update);
-        },
-
-        onRemoveTask: function (e, task) {
-            var model = this.tasks.get(task.id);
-            this.tasks.remove(model);
-            model.destroy();
+        onSelectTaskList: function (taskList) {
+            Backbone.history.navigate('tasks/' + taskList.id, {trigger: true});
         }
+
 
     });
 

@@ -3,30 +3,28 @@
 define([
     'jquery',
     'backbone',
+    'marionette',
     'underscore',
     'views/layouts/appLayout'
-], function ($, Backbone, _, appLayout) {
+], function ($, Backbone, Marionette, _, appLayout) {
     'use strict';
 
     // Add initialization method here
-    var Controller = Backbone.Controller = Backbone.View.extend({
-        createLayout: function () {
-            console.error('`createLayout` not implemented');
+    // TODO: Create own namespace?
+    var Controller = Backbone.Controller = Marionette.Controller.extend({
+
+        showLayout: function (layout) {
+            // Bind to all layout listeners
+            this.listenToView(layout);
+
+            appLayout.show(layout);
         },
 
-        doLayout: function () {
-            if (this.layout) {
-                this.layout.remove();
+        listenToView: function (view) {
+            var events = this.events;
+            for (var key in events) {
+                view.on(key, this[events[key]], this);
             }
-
-            var layout = this.layout = this.createLayout();
-
-            // Render layout
-            this.$el.empty();
-            this.$el.append(layout.render().el);
-            appLayout.show(this);
-
-            return layout;
         }
     });
 

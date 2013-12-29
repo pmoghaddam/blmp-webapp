@@ -24,29 +24,6 @@ define([
 
                     $('body').append(me.view.el);
                     me.view.$('.modal').modal('show');
-
-                    // TODO: Almost there!
-                    me.view.$el.on('collaborator:delete', _.bind(me.onDeleteCollaborator, me));
-
-                    me.view.on('addCollaborator', me.onAddCollaborator, me);
-                }).done();
-        },
-
-        onAddCollaborator: function (email) {
-            var me = this;
-
-            new TaskService().addCollaborator(this.taskList, email)
-                .then(function (user) {
-                    me.collection.add(user);
-                }).done();
-        },
-
-        onDeleteCollaborator: function (e, user) {
-            var me = this;
-
-            new TaskService().removeCollaborator(this.taskList, user)
-                .then(function (res) {
-                    me.collection.remove(res._id);
                 }).done();
         }
 

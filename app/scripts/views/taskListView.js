@@ -5,7 +5,7 @@ define([
     'underscore',
     'backbone',
     'marionette',
-    'templates'
+    'templates',
 ], function ($, _, Backbone, Marionette, JST) {
     'use strict';
 
@@ -14,29 +14,17 @@ define([
         className: 'btn btn-default task-list-item',
         template: JST['app/scripts/templates/taskListView.ejs'],
 
-        events: {
-            'click': 'onClick',
-            'click .delete-task': 'onDelete',
-            'click .collaborators': 'onCollaborators'
+        triggers: {
+            'click': 'select',
+            'click .delete-task': 'delete',
+            'click .collaborators': 'collaborators'
         },
 
         modelEvents: {
             'change': 'render'
-        },
-
-        onClick: function () {
-            this.$el.trigger('taskList:select', [this.model]);
-        },
-
-        onDelete: function (e) {
-            e.preventDefault();
-            this.$el.trigger('taskList:delete', [this.model]);
-        },
-
-        onCollaborators: function (e) {
-            e.preventDefault();
-            this.$el.trigger('taskList:collaborators', [this.model]);
         }
+
+
     });
 
     return View;

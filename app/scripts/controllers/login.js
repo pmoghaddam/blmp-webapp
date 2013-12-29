@@ -21,17 +21,17 @@ define([
         },
 
         login: function () {
-            var layout = this.doLayout();
-            layout.showLogin();
+            var layout = new LoginLayout();
+            this.showLogin();
+
+            this.showLayout(layout);
         },
 
         register: function () {
-            var layout = this.doLayout();
-            layout.showRegistration();
-        },
+            var layout = new LoginLayout();
+            this.showRegistration();
 
-        createLayout: function() {
-            return new LoginLayout();
+            this.showLayout(layout);
         },
 
         showLogin: function () {

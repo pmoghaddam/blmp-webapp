@@ -6,8 +6,9 @@ define([
     'marionette',
     'templates',
     'views/collaboratorView',
+    'mediators/collaboratorsMediator',
     'bootstrap.modal'
-], function ($, _, Marionette, JST, CollaboratorItemView) {
+], function ($, _, Marionette, JST, CollaboratorItemView, CollaboratorsMediator) {
     'use strict';
 
     var View = Marionette.CompositeView.extend({
@@ -22,6 +23,10 @@ define([
             'click #add-collaborator': 'onAddCollaborator'
         },
 
+        initialize: function (options) {
+            new CollaboratorsMediator({view: this, model: options.model, collection: options.collection});
+        },
+
         onHidden: function () {
             this.$el.remove();
         },
@@ -30,7 +35,7 @@ define([
             var $input = this.$('#add-collaborator-input');
             var email = $input.val();
             $input.val('');
-            this.trigger('addCollaborator', email);
+            this.trigger('collaborator:create', email);
         }
     });
 
