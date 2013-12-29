@@ -7,8 +7,7 @@ define([
     'marionette',
     'templates',
     'views/taskView',
-    'controllers/mediators/taskMediator'
-], function ($, _, Backbone, Marionette, JST, TaskView, TaskMediator) {
+], function ($, _, Backbone, Marionette, JST, TaskView) {
     'use strict';
 
     var View = Marionette.CompositeView.extend({
@@ -21,11 +20,7 @@ define([
             'change #add-task-input': 'onAdd'
         },
 
-        initialize: function(options) {
-            new TaskMediator({view: this, collection: options.collection});
-        },
-
-        onRender: function() {
+        onRender: function () {
             this.trigger('not');
         },
 

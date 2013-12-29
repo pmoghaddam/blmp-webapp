@@ -6,9 +6,8 @@ define([
     'backbone',
     'marionette',
     'templates',
-    'views/taskListView',
-    'controllers/mediators/taskListMediator'
-], function ($, _, Backbone, Marionette, JST, TaskListView, TaskListMediator) {
+    'views/taskListView'
+], function ($, _, Backbone, Marionette, JST, TaskListView) {
     'use strict';
 
     var View = Marionette.CompositeView.extend({
@@ -27,11 +26,8 @@ define([
             var data = {title: $input.val()};
             $input.val(''); // Clear it
             this.trigger('taskList:create', this, data);
-        },
-
-        initialize: function(options) {
-            new TaskListMediator({view: this, collection: options.collection});
         }
+
     });
 
     return View;

@@ -6,9 +6,8 @@ define([
     'backbone',
     'marionette',
     'templates',
-    'lib/formHelper',
-    'controllers/mediators/taskDetailMediator'
-], function ($, _, Backbone, Marionette, JST, formHelper, TaskDetailMediator) {
+    'lib/formHelper'
+], function ($, _, Backbone, Marionette, JST, formHelper) {
     'use strict';
 
     var View = Marionette.ItemView.extend({
@@ -20,10 +19,6 @@ define([
 
         modelEvents: {
             'change': 'render'
-        },
-
-        initialize: function (options) {
-            new TaskDetailMediator({view: this, model: options.model});
         },
 
         onSubmit: function (e) {

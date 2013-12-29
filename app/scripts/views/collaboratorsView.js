@@ -6,9 +6,8 @@ define([
     'marionette',
     'templates',
     'views/collaboratorView',
-    'controllers/mediators/collaboratorsMediator',
     'bootstrap.modal'
-], function ($, _, Marionette, JST, CollaboratorItemView, CollaboratorsMediator) {
+], function ($, _, Marionette, JST, CollaboratorItemView) {
     'use strict';
 
     var View = Marionette.CompositeView.extend({
@@ -21,10 +20,6 @@ define([
         events: {
             'hidden.bs.modal': 'onHidden',
             'click #add-collaborator': 'onAddCollaborator'
-        },
-
-        initialize: function (options) {
-            new CollaboratorsMediator({view: this, model: options.model, collection: options.collection});
         },
 
         onHidden: function () {

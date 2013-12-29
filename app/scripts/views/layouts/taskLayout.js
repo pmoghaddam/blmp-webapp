@@ -6,33 +6,60 @@ define([
     'templates',
     'views/tasksView',
     'views/taskListsView',
-    'views/taskDetailView'
-], function ($, Marionette, JST, TasksView, TaskListsView, TaskDetailView) {
+    'views/taskDetailView',
+    'controllers/mediators/taskListMediator',
+    'controllers/mediators/taskMediator',
+    'controllers/mediators/taskDetailMediator'
+], function ($, Marionette, JST, TasksView, TaskListsView, TaskDetailView, TaskListMediator, TaskMediator, TaskDetailMediator) {
     'use strict';
 
     var Layout = Marionette.Layout.extend({
         template: JST['app/scripts/templates/layouts/taskLayout.ejs'],
 
         regions: {
-            taskDetail: '#task-detail',
-            taskLists: '#task-list-all',
-            tasks: '#task-list'
+            taskDetailRegion: '#task-detail',
+            taskListsRegion: '#task-list-all',
+            tasksRegion: '#task-list'
         },
 
         initialize: function (options) {
-            this.taskListsView = new TaskListsView({collection: options.taskLists});
-            this.tasksView = new TasksView({collection: options.tasks});
+            this.taskLists = options.taskLists;
+            this.tasks = options.tasks;
         },
 
         showTask: function (task) {
-            var taskDetailView = new TaskDetailView({model: task});
-            this.taskDetail.show(taskDetailView);
+            var taskDetailView = this.createTaskDetailView(task);
+            this.taskDetailRegion.show(taskDetailView);
         },
 
         // Automatically called by Marionette once the layout prepares itself
         onRender: function () {
-            this.taskLists.show(this.taskListsView);
-            this.tasks.show(this.tasksView);
+            var taskListsView = this.createTaskListsView(this.taskLists);
+            var tasksView = this.createTasksView(this.tasks);
+
+            this.taskListsRegion.show(taskListsView);
+            this.tasksRegion.show(tasksView);
+        },
+
+        createTaskDetailView: function (task) {
+            var view = new TaskDetailView({model: task});
+            var controller = new TaskDetailMediator({view: view, model: task});
+            view.controller = controller;
+            return view;
+        },
+
+        createTaskListsView: function (taskLists) {
+            var view = new TaskListsView({collection: taskLists});
+            var controller = new TaskListMediator({view: view, collection: taskLists});
+            view.controllers = [controller];
+            return view;
+        },
+
+        createTasksView: function (tasks) {
+            var view = new TasksView({collection: tasks});
+            var controller = new TaskMediator({view: view, collection: tasks});
+            view.controllers = [controller];
+            return view;
         }
 
     });
