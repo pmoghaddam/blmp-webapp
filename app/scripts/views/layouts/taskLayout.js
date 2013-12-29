@@ -4,7 +4,7 @@ define([
     'jquery',
     'backbone',
     'templates',
-    'views/tasks',
+    'views/tasksView',
     'views/taskLists',
     'views/taskDetail'
 ], function ($, Backbone, JST, TasksView, TaskListsView, TaskDetailView) {
