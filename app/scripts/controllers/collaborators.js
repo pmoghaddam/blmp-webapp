@@ -4,7 +4,7 @@ define([
     'jquery',
     'backbone',
     'underscore',
-    'views/collaborators',
+    'views/collaboratorsView',
     'services/task',
     'collections/users'
 ], function ($, Backbone, _, CollaboratorsView, TaskService, UsersCollection) {
@@ -21,6 +21,9 @@ define([
                     me.collection = new UsersCollection(users);
                     me.view = new CollaboratorsView({model: taskList, collection: me.collection});
                     me.view.render();
+
+                    $('body').append(me.view.el);
+                    me.view.$('.modal').modal('show');
 
                     // TODO: Almost there!
                     me.view.$el.on('collaborator:delete', _.bind(me.onDeleteCollaborator, me));

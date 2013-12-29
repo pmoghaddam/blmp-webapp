@@ -3,21 +3,20 @@
 define([
     'jquery',
     'underscore',
-    'backbone',
+    'marionette',
     'templates'
-], function ($, _, Backbone, JST) {
+], function ($, _, Marionette, JST) {
     'use strict';
 
-    var View = Backbone.View.extend({
-        template: JST['app/scripts/templates/collaborator.ejs'],
+    var View = Marionette.ItemView.extend({
+        template: JST['app/scripts/templates/collaboratorView.ejs'],
 
         events: {
             'click .delete-user': 'onDelete'
         },
 
-        render: function () {
-            this.$el.html(this.template(this.model.attributes));
-            return this;
+        modelEvents: {
+            'change': 'render'
         },
 
         onDelete: function () {
