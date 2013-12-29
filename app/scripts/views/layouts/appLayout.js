@@ -11,11 +11,16 @@ define([
         el: 'body',
 
         regions: {
-            app: '#app'
+            app: '#app',
+            modal: '#modal'
         },
 
         show: function (view) {
             this.app.show(view);
+        },
+
+        showModal: function (modal) {
+            this.modal.show(modal);
         }
     });
 

@@ -17,6 +17,11 @@ define([
             appLayout.show(layout);
         },
 
+        showModal: function(modal) {
+            modal.on('close', this.destruct, this);
+            appLayout.showModal(modal);
+        },
+
         listenToView: function (view) {
             // One controller per view, avoid reuse
             if (this._listeningToView) {

@@ -31,6 +31,10 @@ define([
             var email = $input.val();
             $input.val('');
             this.trigger('collaborator:create', email);
+        },
+
+        onRender: function () {
+            this.$('.modal').modal('show');
         }
     });
 

@@ -25,10 +25,7 @@ define([
                     me.view = new CollaboratorsView({model: taskList, collection: me.collection});
                     new CollaboratorsMediator({view: me.view, model: taskList, collection: me.collection});
 
-                    me.view.render();
-
-                    $('body').append(me.view.el);
-                    me.view.$('.modal').modal('show');
+                    me.showModal(me.view);
                 }).done();
         }
 
