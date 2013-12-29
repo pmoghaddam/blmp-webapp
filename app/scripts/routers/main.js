@@ -25,6 +25,7 @@ define([
 
             return new AuthService().connect().fail(function () {
                 me.navigate('login', {trigger: true});
+                throw new Error('Unauthorized');
             });
         },
 

@@ -13,6 +13,7 @@ define([
     var Controller = Backbone.Controller = Marionette.Controller.extend({
 
         showLayout: function (layout) {
+            layout.on('close', this.close, this);
             appLayout.show(layout);
         },
 
@@ -36,6 +37,9 @@ define([
             for (var key in events) {
                 view.on(key, this[events[key]], this);
             }
+
+            // Destroy when view is destroyed
+            view.on('close', this.close, this);
         }
 
     });

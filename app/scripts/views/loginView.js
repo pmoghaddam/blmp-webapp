@@ -22,7 +22,8 @@ define([
             this.trigger('signUp');
         },
 
-        onSubmit: function () {
+        onSubmit: function (e) {
+            e.preventDefault();
             var data = formHelper.extractFormValues(this.$('form'));
 
             this.trigger('login', data);
