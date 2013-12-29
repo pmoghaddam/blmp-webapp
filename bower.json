@@ -9,7 +9,8 @@
     "modernizr": "2.6.2",
     "socket.io-client": "0.9.16",
     "q": "0.9.7",
-    "bootstrap": "3.0.3"
+    "bootstrap": "3.0.3",
+    "marionette": "1.4.1"
   },
   "devDependencies": {}
 }
