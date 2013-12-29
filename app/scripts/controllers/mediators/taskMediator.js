@@ -6,7 +6,7 @@ define([
 ], function ($, Backbone) {
     'use strict';
 
-    var Controller = Backbone.Controller.extend({
+    var Controller = Backbone.Mediator.extend({
         events: {
             'task:delete': 'onRemoveTask',
             'task:create': 'onAddTask',
@@ -14,22 +14,16 @@ define([
             'task:update': 'onUpdateTask'
         },
 
-        initialize: function (options) {
-            this.tasks = options.collection;
-            var view = this.view = options.view;
-            this.listenToView(view);
-        },
-
         onAddTask: function (view, task) {
             // Append task list to task
-            task.taskList = this.taskListId;
+            task.taskList = this.collection.taskList;
 
-            this.tasks.create(task);
+            this.collection.create(task);
         },
 
         onRemoveTask: function (view, data) {
-            var model = this.tasks.get(data.model.id);
-            this.tasks.remove(model);
+            var model = this.collection.get(data.model.id);
+            this.collection.remove(model);
             model.destroy();
         },
 

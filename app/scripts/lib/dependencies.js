@@ -5,6 +5,7 @@
  */
 define([
     'lib/controller',
+    'lib/mediator',
     'lib/service',
     'lib/sync',
     'lib/view'

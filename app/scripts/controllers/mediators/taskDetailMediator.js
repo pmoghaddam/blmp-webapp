@@ -6,14 +6,9 @@ define([
 ], function ($, Backbone) {
     'use strict';
 
-    var Controller = Backbone.Controller.extend({
+    var Controller = Backbone.Mediator.extend({
         events: {
             'task:update': 'onUpdate'
-        },
-
-        initialize: function (options) {
-            var view = this.view = options.view;
-            this.listenToView(view);
         },
 
         onUpdate: function (view, task, update) {

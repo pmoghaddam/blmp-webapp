@@ -7,17 +7,10 @@ define([
 ], function ($, Backbone, AuthService) {
     'use strict';
 
-    var Controller = Backbone.Controller.extend({
+    var Controller = Backbone.Mediator.extend({
         events: {
             'register': 'onRegister',
             'cancelSignUp': 'onCancel'
-        },
-
-        initialize: function (options) {
-            var view = this.view = options.view;
-            this.layout = options.layout;
-
-            this.listenToView(view);
         },
 
         onCancel: function () {

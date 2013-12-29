@@ -7,7 +7,7 @@ define([
 ], function ($, Backbone, TaskService) {
     'use strict';
 
-    var Controller = Backbone.Controller.extend({
+    var Controller = Backbone.Mediator.extend({
         events: {
             'collaborator:delete': 'onDelete',
             'collaborator:create': 'onCreate'
@@ -15,9 +15,7 @@ define([
 
         initialize: function (options) {
             this.taskList = options.model;
-            this.collection = options.collection;
-            var view = this.view = options.view;
-            this.listenToView(view);
+            Backbone.Mediator.prototype.initialize.apply(this, arguments);
         },
 
         onCreate: function (email) {

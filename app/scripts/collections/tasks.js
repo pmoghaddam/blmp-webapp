@@ -14,6 +14,7 @@ define([
         initialize: function (models, options) {
             if (options) {
                 this.socketParams = {taskList: options.taskList};
+                this.taskList = options.taskList;
             }
         }
     });

@@ -6,7 +6,7 @@ define([
 ], function ($, Backbone) {
     'use strict';
 
-    var Controller = Backbone.Controller.extend({
+    var Controller = Backbone.Mediator.extend({
         events: {
             'taskList:create': 'onAddTaskList',
             'taskList:select': 'onSelectTaskList',
@@ -14,23 +14,17 @@ define([
             'taskList:collaborators': 'onCollaborators'
         },
 
-        initialize: function (options) {
-            this.taskLists = options.collection;
-            var view = this.view = options.view;
-            this.listenToView(view);
-        },
-
         onSelectTaskList: function (view, data) {
             Backbone.trigger('taskList:select', data.model);
         },
 
         onAddTaskList: function (view, taskList) {
-            this.taskLists.create(taskList);
+            this.collection.create(taskList);
         },
 
         onRemoveTaskList: function (view, data) {
-            var model = this.taskLists.get(data.model.id);
-            this.taskLists.remove(model);
+            var model = this.collection.get(data.model.id);
+            this.collection.remove(model);
             model.destroy();
         },
 
