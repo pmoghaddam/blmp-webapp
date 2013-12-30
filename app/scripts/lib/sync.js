@@ -1,4 +1,5 @@
 /*global define*/
+/*jslint indent: false */
 
 define([
     'jquery',
@@ -103,8 +104,28 @@ define([
             var updateEvent = namespace + ':update';
             var deleteEvent = namespace + ':delete';
 
+            // Filter logic
+            var ignoreEvent = function (data, filter) {
+                if (!filter) {
+                    return false;
+                }
+
+                for (var key in filter) {
+                    if (data[key] !== filter[key]) {
+                        return true;
+                    }
+                }
+
+                return false;
+            };
+
+            // Socket events
             var socketEvents = this.socketEvents = {};
             socketEvents[createEvent] = function (data) {
+                if (ignoreEvent(data, me.socketFilter)) {
+                    return;
+                }
+
                 var model = me.findWhere({guid: data.guid});
 
                 // Distinguish between whether you made it or not
@@ -115,9 +136,17 @@ define([
                 }
             };
             socketEvents[updateEvent] = function (data) {
+                if (ignoreEvent(data, me.socketFilter)) {
+                    return;
+                }
+
                 me.add(data, {merge: true});
             };
             socketEvents[deleteEvent] = function (data) {
+                if (ignoreEvent(data, me.socketFilter)) {
+                    return;
+                }
+
                 var model = me.get(data._id);
                 if (model) {
                     me.remove(model);
