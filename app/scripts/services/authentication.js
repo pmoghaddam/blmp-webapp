@@ -3,15 +3,16 @@
 define([
     'jquery',
     'backbone',
+    'lib/blpm',
     'lib/config',
     'q',
     'services/socket'
-], function ($, Backbone, config, Q, SocketService) {
+], function ($, Backbone, BLPM, config, Q, SocketService) {
     'use strict';
 
     var q = Q;
 
-    var AuthenticationService = Backbone.Service.extend({
+    var AuthenticationService = BLPM.Service.extend({
         login: function (credentials) {
             var me = this;
             return q($.ajax({

@@ -4,13 +4,14 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'lib/blpm',
     'services/authentication',
     'services/socket',
     'views/layouts/loginLayout'
-], function ($, _, Backbone, AuthService, SocketService, LoginLayout) {
+], function ($, _, Backbone, BLPM, AuthService, SocketService, LoginLayout) {
     'use strict';
 
-    var LoginController = Backbone.Controller.extend({
+    var LoginController = BLPM.Controller.extend({
 
         login: function () {
             var layout = new LoginLayout();

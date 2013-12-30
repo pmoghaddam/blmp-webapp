@@ -2,12 +2,12 @@
 
 define([
     'jquery',
-    'backbone',
+    'lib/blpm',
     'services/task'
-], function ($, Backbone, TaskService) {
+], function ($, BLPM, TaskService) {
     'use strict';
 
-    var Controller = Backbone.Mediator.extend({
+    var Controller = BLPM.Mediator.extend({
         events: {
             'collaborator:delete': 'onDelete',
             'collaborator:create': 'onCreate'
@@ -15,7 +15,7 @@ define([
 
         initialize: function (options) {
             this.taskList = options.model;
-            Backbone.Mediator.prototype.initialize.apply(this, arguments);
+            BLPM.Mediator.prototype.initialize.apply(this, arguments);
         },
 
         onCreate: function (email) {

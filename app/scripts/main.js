@@ -30,7 +30,7 @@ require.config({
 });
 
 require([
-    'lib/dependencies', // Important to load (loads other properties)
+    'lib/blpm', // Important to load (loads other properties)
     'controllers/applicationController'
 ], function (config, ApplicationController) {
     new ApplicationController().start();

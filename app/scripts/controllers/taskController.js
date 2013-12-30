@@ -4,14 +4,15 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'lib/blpm',
     'collections/tasks',
     'collections/taskLists',
     'views/layouts/taskLayout',
     'controllers/collaboratorsController'
-], function ($, _, Backbone, Tasks, TaskLists, TaskLayout, CollaboratorsController) {
+], function ($, _, Backbone, BLPM, Tasks, TaskLists, TaskLayout, CollaboratorsController) {
     'use strict';
 
-    var TaskController = Backbone.Controller.extend({
+    var TaskController = BLPM.Controller.extend({
 
         list: function (taskListId) {
             this.taskLists = new TaskLists();

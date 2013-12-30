@@ -2,11 +2,12 @@
 
 define([
     'jquery',
-    'backbone'
-], function ($, Backbone) {
+    'backbone',
+    'lib/blpm'
+], function ($, Backbone, BLPM) {
     'use strict';
 
-    var Controller = Backbone.Controller.extend({
+    var Controller = BLPM.Controller.extend({
         start: function () {
             // Starting logic of controller
         }

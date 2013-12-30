@@ -3,11 +3,12 @@
 define([
     'jquery',
     'backbone',
+    'lib/blpm',
     'services/authentication'
-], function ($, Backbone, AuthService) {
+], function ($, Backbone, BLPM, AuthService) {
     'use strict';
 
-    var Controller = Backbone.Mediator.extend({
+    var Controller = BLPM.Mediator.extend({
         events: {
             'register': 'onRegister',
             'cancelSignUp': 'onCancel'

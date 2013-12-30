@@ -3,13 +3,14 @@
 define([
     'jquery',
     'backbone',
+    'lib/blpm',
     'underscore',
     'q',
     'services/socket'
-], function ($, Backbone, _, Q, SocketService) {
+], function ($, Backbone, BLPM, _, Q, SocketService) {
     'use strict';
 
-    var TaskService = Backbone.Service.extend({
+    var TaskService = BLPM.Service.extend({
         getCollaborators: function (taskList) {
             var defer = Q.defer();
 

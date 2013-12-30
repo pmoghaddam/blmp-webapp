@@ -2,11 +2,12 @@
 
 define([
     'jquery',
-    'backbone'
-], function ($, Backbone) {
+    'backbone',
+    'lib/blpm'
+], function ($, Backbone, BLPM) {
     'use strict';
 
-    var Controller = Backbone.Mediator.extend({
+    var Controller = BLPM.Mediator.extend({
         events: {
             'task:update': 'onUpdate'
         },

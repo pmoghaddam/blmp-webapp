@@ -3,12 +3,13 @@
 define([
     'jquery',
     'backbone',
+    'lib/blpm',
     'underscore',
     'routers/router'
-], function ($, Backbone, _, Router) {
+], function ($, Backbone, BLPM, _, Router) {
     'use strict';
 
-    var ApplicationController = Backbone.Controller.extend({
+    var ApplicationController = BLPM.Controller.extend({
         start: function () {
             // Setup routers
             new Router();

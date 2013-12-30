@@ -3,17 +3,18 @@
 define([
     'jquery',
     'backbone',
+    'lib/blpm',
     'q',
     'lib/config',
     'lib/socket-io'
-], function ($, Backbone, Q, config, io) {
+], function ($, Backbone, BLPM, Q, config, io) {
     'use strict';
 
     // For now assume single socket connection
     var socket;
     var connected;
 
-    var SocketService = Backbone.Service.extend({
+    var SocketService = BLPM.Service.extend({
         connect: function () {
             var deferred = Q.defer();
 

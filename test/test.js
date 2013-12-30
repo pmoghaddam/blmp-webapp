@@ -38,7 +38,7 @@ require.config({
  */
 var specFolder = '../../spec/';
 require([
-    'lib/dependencies', // Important to load (loads other properties)
+    'lib/blpm', // Important to load (loads other properties)
     specFolder + 'test'
 ], function () {
     mocha.run();

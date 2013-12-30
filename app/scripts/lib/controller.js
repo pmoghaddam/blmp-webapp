@@ -10,7 +10,7 @@ define([
     'use strict';
 
     // Add initialization method here
-    var Controller = Backbone.Controller = Marionette.Controller.extend({
+    var Controller = Marionette.Controller.extend({
 
         showLayout: function (layout) {
             layout.on('close', this.destruct, this);

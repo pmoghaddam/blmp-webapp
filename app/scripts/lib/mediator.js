@@ -9,7 +9,7 @@ define([
 
     var mediatorOptions = ['view', 'model', 'collection', 'layout'];
 
-    var Mediator = Backbone.Mediator = Controller.extend({
+    var Mediator = Controller.extend({
         events: {},
 
         /**

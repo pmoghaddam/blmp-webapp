@@ -3,15 +3,16 @@
 define([
     'jquery',
     'backbone',
+    'lib/blpm',
     'underscore',
     'views/collaboratorsView',
     'controllers/mediators/collaboratorsMediator',
     'services/task',
     'collections/users'
-], function ($, Backbone, _, CollaboratorsView, CollaboratorsMediator, TaskService, UsersCollection) {
+], function ($, Backbone, BLPM, _, CollaboratorsView, CollaboratorsMediator, TaskService, UsersCollection) {
     'use strict';
 
-    var Controller = Backbone.Controller.extend({
+    var Controller = BLPM.Controller.extend({
 
         show: function (taskList) {
             var me = this;
