@@ -88,6 +88,7 @@ module.exports = function (grunt) {
             test: {
                 options: {
                     port: 9001,
+                    host: '127.0.0.1',
                     middleware: function (connect) {
                         return [
                             lrSnippet,
@@ -133,7 +134,7 @@ module.exports = function (grunt) {
             all: {
                 options: {
 //                    run: true,
-                    urls: ['http://localhost:<%= connect.test.options.port %>/index.html']
+                    urls: ['http://127.0.0.1:<%= connect.test.options.port %>/index.html']
                 }
             }
         },
