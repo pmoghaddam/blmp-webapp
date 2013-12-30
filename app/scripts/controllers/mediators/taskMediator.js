@@ -12,7 +12,13 @@ define([
             'task:delete': 'onRemoveTask',
             'task:create': 'onAddTask',
             'task:hover': 'onSelectTask',
-            'task:update': 'onUpdateTask'
+            'task:update': 'onUpdateTask',
+            'task:complete': 'onComplete'
+        },
+
+        onComplete: function(view, data) {
+            var task = data.model;
+            task.save({status: 'completed'});
         },
 
         onAddTask: function (view, task) {

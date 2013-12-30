@@ -16,11 +16,36 @@ define([
 
         triggers: {
             'click .delete-task': 'delete',
+            'change input.complete': 'complete',
             'mouseover': 'hover'
         },
 
         modelEvents: {
-            'change': 'render'
+            'change:title': 'render'
+        },
+
+        onRender: function () {
+            // Animate once
+            if (this.isRendered) {
+                return;
+            }
+            this.isRendered = true;
+
+            this.$el.hide();
+            _.defer(_.bind(this.transitionIn, this));
+        },
+
+        transitionIn: function () {
+            this.$el.slideDown(200);
+        },
+
+        remove: function () {
+            var remove = _.bind(function () {
+                Backbone.View.prototype.remove.call(this);
+            }, this);
+
+            // Calls parent's `view` method after animation completes
+            this.$el.slideUp(200, remove);
         }
 
     });

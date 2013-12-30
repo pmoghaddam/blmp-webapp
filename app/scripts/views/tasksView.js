@@ -17,7 +17,12 @@ define([
         itemViewContainer: '.task-list',
 
         events: {
+            'focus #add-task-input': 'onFocus',
             'change #add-task-input': 'onAdd'
+        },
+
+        onFocus: function() {
+            this.$('#add-task-input').val('');
         },
 
         onAdd: function () {

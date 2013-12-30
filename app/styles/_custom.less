@@ -4,6 +4,10 @@
 
 @sidebar-width: 200px;
 
+html, body {
+  background: #eeeeee;
+}
+
 .navbar-primary {
   margin-left: @sidebar-width;
   border-radius: 0;
@@ -14,7 +18,12 @@
 }
 
 .task-layout {
-  margin-left: @sidebar-width;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  left: @sidebar-width;
 }
 
 #task-list-all {
@@ -23,6 +32,20 @@
   left: 0px;
   width: @sidebar-width;
   height: 100%;
+}
+#task-list {
+  width: 49.999999999%;
+  float: left;
+  height: 100%;
+}
+#task-detail {
+  width: 48.999999999%;
+  float:left;
+  height: 100%;
+}
+
+
+#task-list-all {
   text-align: center;
   padding: 0;
   background: #3c3b3b;
@@ -41,6 +64,7 @@
     border: 0;
     border-radius: 0;
     width: 100%;
+    text-align: left;
 
     border-bottom: 1px solid #262626;
     border-top: 1px solid #535353;
@@ -94,11 +118,27 @@
 
 #task-list {
   padding: 0;
+  background: white;
+
+  .delete-task {
+    color: red;
+    &:hover {
+      color: darken(red, 10%);
+    }
+  }
+
+  .task-list-item {
+    border-radius: 0;
+    text-align: left;
+    border-right: 0;
+  }
+
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 #task-detail {
   padding: 0;
-  background: #eeeeee;
+  padding-left: 5px;
 
   form {
     padding: 10px;
@@ -115,35 +155,26 @@
   }
 }
 
-.add-task-item {
+#add-task-input {
+  padding: 10px;
+  padding-left: 20px;
+  font-size: 16px;
+  width: 100%;
+  border: 0;
   background: #428bca;
+  outline: none;
   color: white;
 
-  &:hover {
-    background: lighten(#428bca, 10%);
+  &::-moz-placeholder {
+    color: lightgray;
+    font-style: italic;
   }
-
-  #add-task-input {
-    border: 0;
-    background: transparent;
-    outline: none;
-    color: white;
-
-    &::-moz-placeholder {
-      color: white;
-      font-style: italic;
-    }
-    &::-webkit-input-placeholder {
-      color: white;
-      font-style: italic;
-    }
-    &:-ms-input-placeholder {
-      color: white;
-      font-style: italic;
-    }
+  &::-webkit-input-placeholder {
+    color: lightgray;
+    font-style: italic;
   }
-}
-
-.task-list-item {
-  text-align: left;
+  &:-ms-input-placeholder {
+    color: lightgray;
+    font-style: italic;
+  }
 }
