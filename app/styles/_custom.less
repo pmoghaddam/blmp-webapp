@@ -69,10 +69,10 @@ html, body {
     float: left;
 
     position: relative;
-    min-height: 1px;
-    padding-right: 15px;
-    padding-left: 15px;
+    height: 0px !important;
+    padding: 0 !important;
   }
+
 }
 
 .task-layout {
@@ -196,9 +196,7 @@ html, body {
 }
 
 #task-detail {
-  padding: 0;
-  padding-left: 5px;
-
+  overflow-y: auto;
   form {
     padding: 10px;
   }

@@ -26,7 +26,6 @@ define([
         },
 
         selectVisually: function() {
-            console.log('Yes');
             this.$el.addClass('selected');
         },
 

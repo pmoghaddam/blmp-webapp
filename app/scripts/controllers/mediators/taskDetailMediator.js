@@ -15,6 +15,7 @@ define([
 
         onUpdate: function (view, task, update) {
             task.save(update);
+            this.layout.unshowTask();
         },
 
         onCancel: function() {

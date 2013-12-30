@@ -25,6 +25,16 @@ define([
             'change': 'render'
         },
 
+        onRender: function() {
+            _.defer(_.bind(this.focus, this));
+
+        },
+
+        focus: function() {
+            var $input = this.$('input[name=title]');
+            $input.focus();
+        },
+
         onSubmit: function (e) {
             e.preventDefault();
 
