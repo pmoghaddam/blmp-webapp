@@ -22,7 +22,9 @@ require.config({
         jquery: '../bower_components/jquery/jquery',
         backbone: '../bower_components/backbone/backbone',
         underscore: '../bower_components/underscore/underscore',
-        marionette: '../bower_components/marionette/lib/backbone.marionette',
+        marionette: '../bower_components/marionette/lib/core/amd/backbone.marionette',
+        'backbone.wreqr' : '../bower_components/marionette/public/javascripts/backbone.wreqr',
+        'backbone.babysitter' : '../bower_components/marionette/public/javascripts/backbone.babysitter',
 
         // Bootstrap components
         'bootstrap.modal': '../bower_components/bootstrap/js/modal'

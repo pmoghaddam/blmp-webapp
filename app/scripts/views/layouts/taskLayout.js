@@ -34,10 +34,17 @@ define([
 
         show: function () {
             var taskListsView = this.createTaskListsView(this.taskLists);
-            var tasksView = this.createTasksView(this.tasks);
-
             this.taskListsRegion.show(taskListsView);
-            this.tasksRegion.show(tasksView);
+
+            // Do not show empty
+            if (this.tasks.taskList) {
+                var tasksView = this.createTasksView(this.tasks);
+                this.tasksRegion.show(tasksView);
+            } else {
+                // TODO: Clean up in the future
+                var emptyView = new Marionette.ItemView({template: '<h1>Select a task list first</h1>'});
+                this.tasksRegion.show(emptyView);
+            }
         },
 
         createTaskDetailView: function (task) {
