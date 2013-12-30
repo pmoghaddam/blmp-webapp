@@ -350,7 +350,11 @@ module.exports = function (grunt) {
         'createDefaultTemplate',
         'jst',
         'connect:test',
-        'mocha',
+        'mocha'
+    ]);
+
+    grunt.registerTask('test:watch', [
+        'test',
         'watch:test'
     ]);
 
