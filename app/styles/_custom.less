@@ -182,13 +182,26 @@ html, body {
     }
   }
 
-  .task-list-item {
+  .task-item {
     border-radius: 0;
     text-align: left;
     border-right: 0;
 
     &.selected {
       background: #d3d3d3;
+    }
+
+    padding: 0;
+    .checkbox, .task-title, .action-buttons {
+      padding: 10px;
+      display: inline-block;
+    }
+    .checkbox {
+      padding: 0;
+      margin-left: 10px;
+    }
+    .task-title {
+      width: 69%;
     }
   }
 

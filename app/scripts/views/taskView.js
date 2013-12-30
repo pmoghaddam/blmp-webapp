@@ -11,14 +11,14 @@ define([
 
     var View = Marionette.ItemView.extend({
         tagName: 'li',
-        className: 'list-group-item task-list-item',
+        className: 'list-group-item task-item',
         template: JST['app/scripts/templates/taskView.ejs'],
 
         triggers: {
             'click .delete-task': 'delete',
             'change input.complete': 'complete',
             'click .cancel': 'cancel',
-            'click': 'select'
+            'click .task-title': 'select'
         },
 
         modelEvents: {

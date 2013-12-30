@@ -33,6 +33,7 @@ define([
         focus: function() {
             var $input = this.$('input[name=title]');
             $input.focus();
+            $input.trigger('click');
         },
 
         onSubmit: function (e) {
