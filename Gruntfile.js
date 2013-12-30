@@ -61,7 +61,7 @@ module.exports = function (grunt) {
             },
             test: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.js', 'test/spec/**/*.js'],
-                tasks: ['test']
+                tasks: ['mocha']
             },
             recess: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
@@ -132,7 +132,7 @@ module.exports = function (grunt) {
         mocha: {
             all: {
                 options: {
-                    run: true,
+//                    run: true,
                     urls: ['http://localhost:<%= connect.test.options.port %>/index.html']
                 }
             }
@@ -349,9 +349,9 @@ module.exports = function (grunt) {
         'recess',
         'createDefaultTemplate',
         'jst',
-        'connect:test'
-//        'mocha'
-//        'watch:test'
+        'connect:test',
+        'mocha',
+        'watch:test'
     ]);
 
     grunt.registerTask('build', [

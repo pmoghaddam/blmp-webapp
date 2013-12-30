@@ -17,11 +17,9 @@
         var should = chai.should();
     </script>
 
-    <!-- include source files here... -->
+    <!-- Add Sinon.JS support -->
+    <script src="bower_components/sinon/lib/sinon.js"></script>
 
-    <!-- include spec files here... -->
-    <script src="spec/test.js"></script>
-
-    <script>mocha.run()</script>
+    <script data-main="test" src="/bower_components/requirejs/require.js"></script>
 </body>
 </html>
