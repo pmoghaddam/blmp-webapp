@@ -28,7 +28,6 @@ define([
                 taskLists: this.taskLists
             });
 
-            this.listenTo(Backbone, 'task:select', this.onSelectTask, this);
             this.listenTo(Backbone, 'taskList:collaborators', this.onCollaborators, this);
             this.listenTo(Backbone, 'taskList:select', this.onSelectTaskList, this);
 
@@ -43,10 +42,6 @@ define([
 
         onCollaborators: function (taskList) {
             this.collaborators(taskList.id);
-        },
-
-        onSelectTask: function (task) {
-            this.layout.showTask(task);
         },
 
         onSelectTaskList: function (taskList) {

@@ -19,8 +19,7 @@ define([
         initialize: function(options) {
             var layout = options.layout;
 
-            this.listenTo(layout, 'show:taskLists', this.deselectTask, this);
-            this.listenTo(layout, 'hide:sidebars', this.deselectTask, this);
+            this.listenTo(layout, 'unshow:task', this.deselectTask, this);
 
             BLPM.Mediator.prototype.initialize.apply(this, arguments);
         },
@@ -56,7 +55,7 @@ define([
             this.selectedTaskView = view;
             view.selectVisually();
 
-            Backbone.trigger('task:select', data.model);
+            this.layout.showTask(data.model);
         }
 
     });

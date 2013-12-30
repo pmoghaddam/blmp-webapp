@@ -32,19 +32,20 @@ define([
             this.tasks = options.tasks;
         },
 
-        hideSidebars: function() {
-            this.trigger('hide:sidebars');
-            this.$('.row-offcanvas').removeClass('active-opposite').removeClass('active');
+        unshowTask: function() {
+            this.trigger('unshow:task');
+            this.taskDetailRegion.reset();
+            this.$('#task-list, #task-detail').toggleClass('col-xs-12 col-xs-0');
         },
 
         onShowTaskLists: function () {
             this.trigger('show:taskLists');
-            this.$('.row-offcanvas').removeClass('active-opposite').toggleClass('active');
+            this.$('.row-offcanvas').toggleClass('active');
         },
 
         showTask: function (task) {
             this.trigger('show:task');
-            this.$('.row-offcanvas').removeClass('active').addClass('active-opposite');
+            this.$('#task-list, #task-detail').toggleClass('col-xs-12 col-xs-0');
 
             var taskDetailView = this.createTaskDetailView(task);
             this.taskDetailRegion.show(taskDetailView);

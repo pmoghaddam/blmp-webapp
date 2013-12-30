@@ -18,7 +18,7 @@ define([
         },
 
         onCancel: function() {
-            this.layout.hideSidebars();
+            this.layout.unshowTask();
         }
     });
 

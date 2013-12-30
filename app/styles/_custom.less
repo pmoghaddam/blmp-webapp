@@ -15,6 +15,14 @@ html, body {
     -webkit-transition: all 0.25s ease-out;
     -moz-transition: all 0.25s ease-out;
     transition: all 0.25s ease-out;
+
+    // Column transitions as well
+    > div {
+      -webkit-transition: width 0.3s ease, margin 0.3s ease;
+      -moz-transition: width 0.3s ease, margin 0.3s ease;
+      -o-transition: width 0.3s ease, margin 0.3s ease;
+      transition: width 0.3s ease, margin 0.3s ease;
+    }
   }
 
   .row-offcanvas
@@ -47,12 +55,23 @@ html, body {
     padding-right: 15px !important; // Bootstrap related
   }
 
-  // Show navbar
+  // Show navbar when mobile format
   .navbar {
     display: block !important;
   }
   #task-list-all, #task-list, #task-detail {
     padding-bottom: 50px !important;
+  }
+
+  // Missing bootstrap columns (useful for transitions)
+  .col-xs-0 {
+    width: 0;
+    float: left;
+
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
   }
 }
 
