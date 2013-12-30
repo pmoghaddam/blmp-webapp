@@ -6,44 +6,75 @@
 
 html, body {
   background: #eeeeee;
+  overflow: hidden;
 }
 
-.navbar-primary {
-  margin-left: @sidebar-width;
-  border-radius: 0;
-  border-width: 0;
-  border-bottom-width: 1px;
+@media screen and (max-width: 767px) {
+  .row-offcanvas {
+    position: relative;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+  }
 
-  margin: 0;
+  .row-offcanvas
+  .sidebar-offcanvas {
+    left: -50%; /* 6 columns */
+  }
+
+  .row-offcanvas.active {
+    left: 50%; /* 6 columns */
+  }
+
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+    width: 50%; /* 6 columns */
+    padding-left: 15px !important; // Bootstrap related
+  }
+
+  .row-offcanvas
+  .sidebar-offcanvas-opposite {
+    right: -100%; /* 9 columns */
+  }
+  .row-offcanvas.active-opposite {
+    right: 100%; /* 9 columns */
+  }
+  .sidebar-offcanvas-opposite {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding-right: 15px !important; // Bootstrap related
+  }
+
+  // Show navbar
+  .navbar {
+    display: block !important;
+  }
+  #task-list-all, #task-list, #task-detail {
+    padding-bottom: 50px !important;
+  }
 }
 
 .task-layout {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  height: 100%;
-  left: @sidebar-width;
-}
+  .navbar {
+    display: none;
+    background: #3c3b3b;
+    border: 0;
+    border-bottom: 1px solid darken(#3c3b3b, 10%);
+    margin-bottom: 0;
+    z-index: 1000;
+  }
 
-#task-list-all {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: @sidebar-width;
-  height: 100%;
-}
-#task-list {
-  width: 49.999999999%;
-  float: left;
-  height: 100%;
-}
-#task-detail {
-  width: 48.999999999%;
-  float:left;
-  height: 100%;
-}
+  .navbar-brand {
+    color: white;
+  }
 
+  .navbar-toggle {
+    float: left;
+    margin-left: 10px;
+  }
+}
 
 #task-list-all {
   text-align: center;
@@ -54,6 +85,10 @@ html, body {
     font-size: 30px;
     color: white;
     margin-bottom: 20px;
+
+    @media screen and (max-width: 767px) {
+      display: none;
+    }
   }
 
   .task-list-item {
@@ -119,6 +154,7 @@ html, body {
 #task-list {
   padding: 0;
   background: white;
+  overflow-y: auto;
 
   .delete-task {
     color: red;
@@ -131,6 +167,10 @@ html, body {
     border-radius: 0;
     text-align: left;
     border-right: 0;
+
+    &.selected {
+      background: #d3d3d3;
+    }
   }
 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -147,12 +187,6 @@ html, body {
 
 .container {
   width: 100% !important;
-}
-
-@media (min-width: 768px) {
-  .navbar-nav.navbar-right:last-child {
-    margin-right: 0px;
-  }
 }
 
 #add-task-input {

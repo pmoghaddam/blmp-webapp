@@ -1,6 +1,39 @@
-<div id="task-list-all"/>
+<script type="text/javascript">
+    $(document).ready(function() {
+//        $('[data-toggle=offcanvas]').click(function() {
+//            $('.row-offcanvas').toggleClass('active');
+//        });
+//        $('[data-toggle=offcanvas-opposite]').click(function() {
+//            $('.row-offcanvas').toggleClass('active-opposite');
+//        });
 
-<div class="task-layout">
-    <div id="task-list"/>
-    <div id="task-detail"/>
+        $(window).resize(function(){
+            var $height = $(window).height();
+            $('.full-height').css('height', $height +'px');
+        });
+
+        var $height = $(window).height();
+        $('.full-height').css('height', $height +'px');
+    });
+</script>
+
+<nav class="navbar navbar-default" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="offcanvas">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand pull-right" href="#">BLPM</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row row-offcanvas">
+        <div id="task-list-all" class="col-sm-2 sidebar-offcanvas full-height"/>
+        <div id="task-list" class="col-xs-12 col-sm-5 full-height"/>
+        <div id="task-detail" class="col-sm-5 sidebar-offcanvas-opposite full-height"/>
+    </div>
 </div>

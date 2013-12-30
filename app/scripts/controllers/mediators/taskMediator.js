@@ -11,9 +11,25 @@ define([
         events: {
             'task:delete': 'onRemoveTask',
             'task:create': 'onAddTask',
-            'task:hover': 'onSelectTask',
+            'task:select': 'onSelectTask',
             'task:update': 'onUpdateTask',
             'task:complete': 'onComplete'
+        },
+
+        initialize: function(options) {
+            var layout = options.layout;
+
+            this.listenTo(layout, 'show:taskLists', this.deselectTask, this);
+            this.listenTo(layout, 'hide:sidebars', this.deselectTask, this);
+
+            BLPM.Mediator.prototype.initialize.apply(this, arguments);
+        },
+
+        deselectTask: function () {
+            if (this.selectedTaskView) {
+                this.selectedTaskView.deselectVisually();
+            }
+            this.selectedTaskView = null;
         },
 
         onComplete: function(view, data) {
@@ -35,6 +51,11 @@ define([
         },
 
         onSelectTask: function (view, data) {
+            // Setup visual marker
+            this.deselectTask();
+            this.selectedTaskView = view;
+            view.selectVisually();
+
             Backbone.trigger('task:select', data.model);
         }
 

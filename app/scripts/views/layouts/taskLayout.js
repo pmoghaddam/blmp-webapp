@@ -14,6 +14,7 @@ define([
     'use strict';
 
     var Layout = Marionette.Layout.extend({
+        className: 'task-layout',
         template: JST['app/scripts/templates/layouts/taskLayout.ejs'],
 
         regions: {
@@ -22,12 +23,29 @@ define([
             tasksRegion: '#task-list'
         },
 
+        events: {
+            'click [data-toggle=offcanvas]': 'onShowTaskLists'
+        },
+
         initialize: function (options) {
             this.taskLists = options.taskLists;
             this.tasks = options.tasks;
         },
 
+        hideSidebars: function() {
+            this.trigger('hide:sidebars');
+            this.$('.row-offcanvas').removeClass('active-opposite').removeClass('active');
+        },
+
+        onShowTaskLists: function () {
+            this.trigger('show:taskLists');
+            this.$('.row-offcanvas').removeClass('active-opposite').toggleClass('active');
+        },
+
         showTask: function (task) {
+            this.trigger('show:task');
+            this.$('.row-offcanvas').removeClass('active').addClass('active-opposite');
+
             var taskDetailView = this.createTaskDetailView(task);
             this.taskDetailRegion.show(taskDetailView);
         },
@@ -49,21 +67,21 @@ define([
 
         createTaskDetailView: function (task) {
             var view = new TaskDetailView({model: task});
-            var controller = new TaskDetailMediator({view: view, model: task});
+            var controller = new TaskDetailMediator({view: view, model: task, layout: this});
             view.controller = controller;
             return view;
         },
 
         createTaskListsView: function (taskLists) {
             var view = new TaskListsView({collection: taskLists});
-            var controller = new TaskListMediator({view: view, collection: taskLists});
+            var controller = new TaskListMediator({view: view, collection: taskLists, layout: this});
             view.controllers = [controller];
             return view;
         },
 
         createTasksView: function (tasks) {
             var view = new TasksView({collection: tasks});
-            var controller = new TaskMediator({view: view, collection: tasks});
+            var controller = new TaskMediator({view: view, collection: tasks, layout: this});
             view.controllers = [controller];
             return view;
         }

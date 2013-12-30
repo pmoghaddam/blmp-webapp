@@ -17,11 +17,20 @@ define([
         triggers: {
             'click .delete-task': 'delete',
             'change input.complete': 'complete',
-            'mouseover': 'hover'
+            'click .cancel': 'cancel',
+            'click': 'select'
         },
 
         modelEvents: {
             'change:title': 'render'
+        },
+
+        selectVisually: function() {
+            this.$el.addClass('selected');
+        },
+
+        deselectVisually: function () {
+            this.$el.removeClass('selected');
         },
 
         onRender: function () {

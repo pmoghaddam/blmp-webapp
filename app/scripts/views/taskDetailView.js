@@ -17,6 +17,10 @@ define([
             'submit': 'onSubmit'
         },
 
+        triggers: {
+            'click .cancel': 'task:cancel'
+        },
+
         modelEvents: {
             'change': 'render'
         },
