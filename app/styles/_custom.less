@@ -2,18 +2,104 @@
 @import "components/_login";
 @import "components/_task-list";
 
-body {
-  padding-top: 70px;
+@sidebar-width: 200px;
+
+.navbar-primary {
+  margin-left: @sidebar-width;
+  border-radius: 0;
+  border-width: 0;
+  border-bottom-width: 1px;
+
+  margin: 0;
+}
+
+.task-layout {
+  margin-left: @sidebar-width;
 }
 
 #task-list-all {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: @sidebar-width;
+  height: 100%;
   text-align: center;
-  .btn-group {
+  padding: 0;
+  background: #3c3b3b;
+
+  #logo {
+    font-size: 30px;
+    color: white;
+    margin-bottom: 20px;
+  }
+
+  .task-list-item {
+    font-size: 14px;
+    height: 40px;
+    color: #bfbfbf;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
     width: 100%;
+
+    border-bottom: 1px solid #262626;
+    border-top: 1px solid #535353;
+
+    &:hover {
+      background-color: #4f4f4f;
+      color: #f1f1f2;
+    }
+  }
+
+  .collaborators {
+    color: white;
+    &:hover {
+      color: #eeeeee;
+    }
+  }
+
+  .delete-task {
+    color: red;
+    &:hover {
+      color: darken(red, 10%);
+    }
+  }
+
+  .sidebar-footer {
+    position: absolute;
+    bottom: 0px;
+
+    padding: 10px;
+    text-align: left;
+
+    .logout {
+      color: red;
+      &:hover {
+        color: ligthen(red, 10%);
+      }
+    }
+  }
+
+  .add-task-list-container {
+    margin: 10px;
+    margin-top: 20px;
+  }
+
+  .add-task-list {
+    color: white;
+    border: 1px solid darken(green, 2%);
+    background-color: green;
   }
 }
 
+#task-list {
+  padding: 0;
+}
+
 #task-detail {
+  padding: 0;
+  background: #eeeeee;
+
   form {
     padding: 10px;
   }

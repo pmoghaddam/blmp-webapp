@@ -18,10 +18,12 @@ define([
         itemViewContainer: '#task-lists',
 
         events: {
-            'change #add-task-list-input': 'onAdd'
+            'submit': 'onAdd'
         },
 
-        onAdd: function () {
+        onAdd: function (e) {
+            e.preventDefault();
+
             var $input = this.$('#add-task-list-input');
             var data = {title: $input.val()};
             $input.val(''); // Clear it

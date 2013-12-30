@@ -1,6 +1,17 @@
-<h4>Task Lists</h4>
-<div id="task-lists" class="btn-group btn-group-vertical">
+<h4 id="logo">BLPM</h4>
+<div id="task-lists">
     <!-- Entries go here -->
 </div>
 
-<input type="text" id="add-task-list-input" placeholder="Create task list..."/>
+<form class="add-task-list-form">
+    <div class="input-group add-task-list-container">
+        <input type="text" id="add-task-list-input" class="form-control" placeholder="Create task list..."/>
+          <span class="input-group-btn">
+            <button type="submit" class="add-task-list btn btn-default" type="button">Add</button>
+          </span>
+    </div>
+</form>
+
+<div class="sidebar-footer">
+    <a href="#logout" class="logout">Logout</a>
+</div>
