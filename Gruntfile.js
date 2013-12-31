@@ -71,8 +71,7 @@ module.exports = function (grunt) {
         connect: {
             options: {
                 port: SERVER_PORT,
-                // change this to '0.0.0.0' to access the server from outside
-                hostname: 'localhost'
+                hostname: '*'
             },
             livereload: {
                 options: {
@@ -88,7 +87,6 @@ module.exports = function (grunt) {
             test: {
                 options: {
                     port: 9001,
-                    host: '127.0.0.1',
                     middleware: function (connect) {
                         return [
                             lrSnippet,
@@ -133,7 +131,6 @@ module.exports = function (grunt) {
         mocha: {
             all: {
                 options: {
-//                    run: true,
                     urls: ['http://127.0.0.1:<%= connect.test.options.port %>/index.html']
                 }
             }

@@ -36,7 +36,7 @@ require.config({
  * incorporated into the 'app' and '.tmp' folder. They operate
  * as one big application.
  */
-var specFolder = '../../spec/';
+var specFolder = '../spec/';
 require([
     'lib/blpm', // Important to load (loads other properties)
     specFolder + 'test'
